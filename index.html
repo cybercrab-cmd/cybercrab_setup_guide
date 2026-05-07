@@ -4,165 +4,181 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Инструкция по настройке V&ZeroWidthSpace;Р&ZeroWidthSpace;N | CyberCrab</title>
-<style>
-    :root {
-        --bg-color: #0f172a; --card-bg: #1e293b; --text-main: #f8fafc;
-        --text-muted: #94a3b8; --accent: #38bdf8; --border: #334155;
-        --success: #10b981; --warning: #f59e0b; --danger: #ef4444;
-    }
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        background-color: var(--bg-color); color: var(--text-main);
-        margin: 0; padding: 20px; line-height: 1.6;
-    }
-    .container { max-width: 600px; margin: 0 auto; }
+    <style>
+        /* ================= Переменные и База ================= */
+        :root {
+            --bg-color: #0f172a; --card-bg: #1e293b; --text-main: #f8fafc;
+            --text-muted: #94a3b8; --accent: #38bdf8; --border: #334155;
+            --success: #10b981; --warning: #f59e0b; --danger: #ef4444;
+        }
+        
+        * { 
+            box-sizing: border-box; 
+            -webkit-tap-highlight-color: transparent; 
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color); color: var(--text-main);
+            margin: 0; padding: 20px; line-height: 1.6;
+        }
+        
+        .container { max-width: 600px; margin: 0 auto; }
 
-    /* Хедер */
-    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 0 5px; }
-    .logo-box { display: flex; align-items: center; gap: 15px; }
-    .logo-box img { height: 80px; border-radius: 10px; background: transparent; box-shadow: none; }
-    /* Заголовок увеличен до высоты лого */
-    .logo-box span { font-weight: 800; font-size: 2.2rem; letter-spacing: -1px; line-height: 80px; }
+        /* ================= Хедер и Логотип ================= */
+        .header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 10px 20px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; 
+        }
+        
+        .logo-box { display: flex; align-items: center; }
+        .logo-box img { 
+            margin-right: 10px; height: 100px; width: auto; 
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .logo-box:hover img { transform: scale(1.08) rotate(-3deg); }
+        .logo-box span { font-weight: 800; font-size: 2.2rem; letter-spacing: -1px; line-height: 80px; }
+        .logo-text { white-space: nowrap; font-weight: bold; }
+        .vpn-text { margin-left: 2px; color: #007bff; }
 
-    .lang-link { color: var(--text-muted); text-decoration: none; font-size: 0.8rem; font-weight: 600; padding: 5px 12px; border: 1px solid var(--border); border-radius: 20px; transition: 0.2s; }
-    .lang-link:hover { color: var(--accent); border-color: var(--accent); }
+        .lang-link { 
+            color: var(--text-muted); text-decoration: none; font-size: 0.8rem; 
+            font-weight: 600; padding: 5px 12px; border: 1px solid var(--border); 
+            border-radius: 20px; transition: 0.2s; 
+        }
+        .lang-link:hover { color: var(--accent); border-color: var(--accent); }
 
-    /* Стили для кнопок скачивания приложений */
-   .app-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
-   .app-btn { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 8px 16px; border-radius: 8px; color: var(--text-main); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: all 0.2s ease; }
-   .app-btn:hover { background: rgba(56, 189, 248, 0.1); border-color: var(--accent); color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15); }
-   .app-btn svg { width: 18px; height: 18px; fill: currentColor; }
+        /* ================= Кнопки приложений ================= */
+        .app-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .app-btn { 
+            display: inline-flex; align-items: center; gap: 8px; 
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border); 
+            padding: 8px 16px; border-radius: 8px; color: var(--text-main); 
+            text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: all 0.2s ease; 
+        }
+        .app-btn:hover { 
+            background: rgba(56, 189, 248, 0.1); border-color: var(--accent); 
+            color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15); 
+        }
+        .app-btn svg { width: 18px; height: 18px; fill: currentColor; }
 
-    /* Рекомендация ОС (Улучшено) */
-    #os-suggestion { margin-bottom: 20px; }
-    .os-card {
-       background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(56, 189, 248, 0.05));
-       border: 1px solid var(--accent); border-radius: 18px; padding: 16px;
-       display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    }
-    .os-info { display: flex; align-items: center; gap: 12px; }
-    .os-info i { font-style: normal; font-size: 1.6rem; }
-    .os-info b { color: var(--accent); font-size: 0.95rem; display: block; }
-    .btn-mini { background: var(--accent); color: #000; border: none; padding: 8px 14px; border-radius: 10px; font-weight: 700; font-size: 0.8rem; cursor: pointer; }
+        /* ================= Рекомендация ОС ================= */
+        #os-suggestion { margin-bottom: 20px; }
+        .os-card {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(56, 189, 248, 0.05));
+            border: 1px solid var(--accent); border-radius: 18px; padding: 16px;
+            display: flex; align-items: center; justify-content: space-between; gap: 12px;
+        }
+        .os-info { display: flex; align-items: center; gap: 12px; }
+        .os-info i { font-style: normal; font-size: 1.6rem; }
+        .os-info b { color: var(--accent); font-size: 0.95rem; display: block; }
+        .btn-mini { 
+            background: var(--accent); color: #000; border: none; padding: 8px 14px; 
+            border-radius: 10px; font-weight: 700; font-size: 0.8rem; cursor: pointer; transition: 0.2s;
+        }
 
-    /* Базовая карточка */
-    .card { background-color: var(--card-bg); border-radius: 16px; padding: 25px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid var(--border); position: relative; overflow: hidden; }
+        /* ================= Карточки ================= */
+        .card { 
+            background-color: var(--card-bg); border-radius: 16px; padding: 25px; 
+            margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
+            border: 1px solid var(--border); position: relative; overflow: hidden; 
+        }
+        .card-bot { border-top: 4px solid var(--success); text-align: center; }
+        .card-support { border-bottom: 4px solid var(--warning); margin-top: 25px; }
 
-    /* Цветовые акценты */
-    .card-bot { border-top: 4px solid var(--success); text-align: center; }
-    .card-support { border-bottom: 4px solid var(--warning); margin-top: 25px; }
+        /* ================= Блок Бота ================= */
+        .bot-title { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 15px; }
+        .bot-title h2 { font-size: 1.15rem; font-weight: 800; color: #fff; margin: 0; line-height: 1.4; max-width: 400px; }
+        .bot-desc { color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem; }
+        .btn-action {
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            color: #fff !important; text-decoration: none; padding: 14px 24px; border-radius: 12px;
+            font-weight: bold; font-size: 1.05rem; transition: all 0.3s ease;
+        }
+        .btn-bot { background: var(--success); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2); }
+        .btn-bot:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4); background: #059669; }
 
-    /* Блок Бота */
-    .bot-title { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 15px; }
-    .bot-title h2 { font-size: 1.15rem; font-weight: 800; color: #fff; margin: 0; line-height: 1.4; max-width: 400px; }
-    .bot-desc { color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem; }
-    .btn-action {
-        display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-        color: #fff !important; text-decoration: none; padding: 14px 24px; border-radius: 12px;
-        font-weight: bold; font-size: 1.05rem; transition: all 0.3s ease;
-    }
-    .btn-bot { background: var(--success); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2); }
-    .btn-bot:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4); background: #059669; }
+        /* ================= Диагностическая сетка ================= */
+        .diag-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+        .diag-item {
+            background: var(--card-bg); border: 1px solid var(--border); padding: 18px;
+            border-radius: 16px; cursor: pointer; display: flex; align-items: center; gap: 15px;
+            transition: 0.2s;
+        }
+        .diag-item:hover { border-color: var(--accent); background: rgba(56, 189, 248, 0.05); transform: translateY(-2px); }
+        .diag-item i { font-style: normal; font-size: 1.6rem; }
+        .diag-item .label-box { flex-grow: 1; display: flex; flex-direction: column; }
+        .diag-item .label-heading { font-weight: 700; font-size: 1.05rem; color: #fff; margin-bottom: 2px; }
+        .diag-item .label-desc { font-size: 0.85rem; color: var(--text-muted); }
 
-    /* Диагностическая сетка */
-    .diag-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
-    .diag-item {
-        background: var(--card-bg); border: 1px solid var(--border); padding: 18px;
-        border-radius: 16px; cursor: pointer; display: flex; align-items: center; gap: 15px;
-        transition: 0.2s;
-    }
+        /* Эффект нажатия (Active State) */
+        .diag-item:active, .app-btn:active, .btn-mini:active, .support-item:active {
+            transform: scale(0.97); background: rgba(56, 189, 248, 0.1);
+        }
 
-    /* Состояние при нажатии — карточка как бы уходит вглубь */
-    .diag-item:active, .app-btn:active, .btn-mini:active, .support-item:active {
-        transform: scale(0.97);
-        background: rgba(56, 189, 248, 0.1);
-    }
+        /* ================= Вьюхи и Инфо-блоки ================= */
+        .view { display: none; animation: fadeIn 0.2s cubic-bezier(0.2, 1, 0.3, 1); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .back-nav { display: inline-flex; align-items: center; gap: 8px; color: var(--accent); cursor: pointer; margin-bottom: 15px; font-weight: 600; font-size: 0.9rem; }
+        .content-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-bottom: 15px; }
+        
+        .instant-fix { background: rgba(16, 185, 129, 0.1); border: 1px solid var(--success); padding: 15px; border-radius: 12px; margin-bottom: 15px; font-size: 0.9rem; }
+        .instant-fix::before { content: '⚡ Мгновенное решение'; display: block; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: var(--success); margin-bottom: 4px; }
+        
+        .success-finish { background: rgba(16, 185, 129, 0.15); border: 1px solid var(--success); padding: 15px; border-radius: 12px; font-size: 0.95rem; text-align: center; font-weight: 600; }
+        .sol-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 12px; border-radius: 12px; margin-bottom: 10px; }
+        .sol-card b { color: var(--accent); font-size: 0.95rem; display: block; }
+        .sol-card p { margin: 4px 0 0; font-size: 0.85rem; color: var(--text-muted); }
 
-    .diag-item:hover { border-color: var(--accent); background: rgba(56, 189, 248, 0.05); transform: translateY(-2px); }
-    .diag-item i { font-style: normal; font-size: 1.6rem; }
-    .diag-item .label-box { flex-grow: 1; display: flex; flex-direction: column; }
-    .diag-item .label-heading { font-weight: 700; font-size: 1.05rem; color: #fff; margin-bottom: 2px; }
-    .diag-item .label-desc { font-size: 0.85rem; color: var(--text-muted); }
+        /* Спец блоки */
+        .info-box { background: rgba(56, 189, 248, 0.1); border-left: 4px solid var(--accent); padding: 15px; border-radius: 0 8px 8px 0; margin-top: 15px; font-size: 0.85rem; }
+        .toggle-btn { background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.8rem; margin-top: 8px; }
+        .screenshot-content img { width: 100%; border-radius: 8px; margin-top: 10px; }
+        .cyber-link { color: var(--accent); text-decoration: none; font-weight: bold; border-bottom: 1px dashed; }
 
-    /* Вьюхи */
-    .view { display: none; animation: fadeIn 0.2s cubic-bezier(0.2, 1, 0.3, 1); }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-    .back-nav { display: inline-flex; align-items: center; gap: 8px; color: var(--accent); cursor: pointer; margin-bottom: 15px; font-weight: 600; font-size: 0.9rem; }
+        /* ================= FAQ ================= */
+        .faq-item { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
+        .faq-item summary {
+            padding: 15px; cursor: pointer; color: var(--accent); font-weight: 700; font-size: 1rem;
+            list-style: none; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s;
+        }
+        .faq-item summary:hover { background: rgba(255,255,255,0.02); }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::after { content: '▼'; font-size: 0.7rem; transition: transform 0.3s; opacity: 0.5; }
+        .faq-item[open] summary::after { transform: rotate(180deg); }
+        .faq-answer { padding: 0 15px 15px 15px; color: var(--text-muted); font-size: 0.85rem; }
 
-    .content-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-bottom: 15px; }
-    .instant-fix { background: rgba(16, 185, 129, 0.1); border: 1px solid var(--success); padding: 15px; border-radius: 12px; margin-bottom: 15px; font-size: 0.9rem; }
-    .instant-fix::before { content: '⚡ Мгновенное решение'; display: block; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: var(--success); margin-bottom: 4px; }
-    .success-finish {background: rgba(16, 185, 129, 0.15); border: 1px solid var(--success); padding: 15px; border-radius: 12px; font-size: 0.95rem; text-align: center; font-weight: 600;}
-    .sol-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 12px; border-radius: 12px; margin-bottom: 10px; }
-    .sol-card b { color: var(--accent); font-size: 0.95rem; display: block; }
-    .sol-card p { margin: 4px 0 0; font-size: 0.85rem; color: var(--text-muted); }
+        /* ================= Поддержка ================= */
+        .support-title { color: var(--warning); font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; text-align: center; }
+        .support-links-grid { display: flex; flex-direction: column; gap: 10px; }
+        .support-item {
+            display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-main);
+            background: rgba(255,255,255,0.02); padding: 12px 18px; border-radius: 12px;
+            border: 1px solid var(--border); transition: 0.2s; font-weight: 600; font-size: 0.9rem;
+        }
+        .support-item:hover { border-color: var(--warning); background: rgba(245, 158, 11, 0.05); transform: translateX(5px); }
+        .support-icon { width: 18px; height: 18px; color: var(--warning); flex-shrink: 0; }
 
-    /* FAQ Стили под скриншот */
-    .faq-item {
-        background: rgba(255,255,255,0.03);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        margin-bottom: 10px;
-        overflow: hidden;
-    }
-    .faq-item summary {
-        padding: 15px;
-        cursor: pointer;
-        color: var(--accent);
-        font-weight: 700;
-        font-size: 1rem;
-        list-style: none;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        transition: background 0.3s;
-    }
-    .faq-item summary:hover { background: rgba(255,255,255,0.02); }
-    .faq-item summary::-webkit-details-marker { display: none; }
+        /* ================= Футер ================= */
+        .footer-links { text-align: center; margin-top: 40px; margin-bottom: 20px; font-size: 0.85rem; border-top: 1px solid var(--border); padding-top: 25px;}
+        .footer-links a { color: var(--text-muted); text-decoration: none; margin: 0 10px; transition: 0.2s; }
+        .footer-links a:hover { color: var(--accent); }
+        .copyright { margin-top: 10px; color: var(--text-muted); opacity: 0.6; }
 
-    /* Стилизация треугольника */
-    .faq-item summary::after {
-        content: '▼';
-        font-size: 0.7rem;
-        transition: transform 0.3s;
-        opacity: 0.5;
-    }
-    .faq-item[open] summary::after { transform: rotate(180deg); }
+        /* ================= Адаптивность (Медиа-запросы) ================= */
+        @media (max-width: 600px) {
+            body { font-size: 14px; }
+            .header { padding: 8px 10px; }
+            .logo-box img { height: 80px; } /* Немного уменьшил лого для мобильных по умолчанию */
+            h1 { font-size: 1.6em; }
+            .card { padding: 15px; }
+        }
 
-    .faq-answer {
-        padding: 0 15px 15px 15px;
-        color: var(--text-muted);
-        font-size: 0.85rem;
-    }
-
-    /* Спец блоки */
-    .info-box { background: rgba(56, 189, 248, 0.1); border-left: 4px solid var(--accent); padding: 15px; border-radius: 0 8px 8px 0; margin-top: 15px; font-size: 0.85rem; }
-    .toggle-btn { background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.8rem; margin-top: 8px; }
-    .screenshot-content img { width: 100%; border-radius: 8px; margin-top: 10px; }
-    .cyber-link { color: var(--accent); text-decoration: none; font-weight: bold; border-bottom: 1px dashed; }
-
-    /* Блок поддержки */
-    .support-title { color: var(--warning); font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; text-align: center; }
-    .support-links-grid { display: flex; flex-direction: column; gap: 10px; }
-    .support-item {
-        display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-main);
-        background: rgba(255,255,255,0.02); padding: 12px 18px; border-radius: 12px;
-        border: 1px solid var(--border); transition: 0.2s; font-weight: 600; font-size: 0.9rem;
-    }
-    .support-item:hover { border-color: var(--warning); background: rgba(245, 158, 11, 0.05); transform: translateX(5px); }
-    .support-icon { width: 18px; height: 18px; color: var(--warning); flex-shrink: 0; }
-
-    /* Футер */
-    .footer-links { text-align: center; margin-top: 40px; margin-bottom: 20px; font-size: 0.85rem; border-top: 1px solid var(--border); padding-top: 25px;}
-    .footer-links a { color: var(--text-muted); text-decoration: none; margin: 0 10px; transition: 0.2s; }
-    .footer-links a:hover { color: var(--accent); }
-    .copyright { margin-top: 10px; color: var(--text-muted); opacity: 0.6; }
-
-    @media (max-width: 480px) {
-        .logo-box span { font-size: 1.5rem; line-height: 80px; }
-    }
-</style>
+        @media (max-width: 480px) {
+            .logo-box span { font-size: 1.5rem; line-height: 80px; }
+        }
+    </style>
 </head>
 <body>
 
@@ -171,7 +187,9 @@
     <header class="header">
         <div class="logo-box">
             <img src="img/CyberCrab_logo.png" alt="🦀">
-            <span>CyberCrab V&ZeroWidthSpace;Р&ZeroWidthSpace;N</span>
+            <div class="logo-text">
+                <span>CyberCrab</span><span class="vpn-text">V&ZeroWidthSpace;Р&ZeroWidthSpace;N</span>
+            </div>
         </div>
         <a href="index_en.html" class="lang-link">English</a>
     </header>
