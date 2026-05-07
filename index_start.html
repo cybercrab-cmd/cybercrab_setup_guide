@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<!-- saved from url=(0111)file:///C:/Users/roma9/%D0%9C%D0%BE%D0%B9%20%D0%B4%D0%B8%D1%81%D0%BA/Docs/vpn/guide_setup/index.html#android-tv -->
+<html lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инструкция по настройке &lt;span style="white-space: nowrap;"&gt;V​Р​N&lt;/span&gt;</title>
+<style>
+    :root { --bg-color: #0f172a; --card-bg: #1e293b; --text-main: #f8fafc; --text-muted: #94a3b8; --accent: #38bdf8; --accent-hover: #0284c7; --border: #334155; --success: #10b981; --warning: #f59e0b; }
+    html { scroll-behavior: smooth; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-color); color: var(--text-main); margin: 0; padding: 20px; line-height: 1.6; }
+    .container { max-width: 700px; margin: 0 auto; }
+    .card { background-color: var(--card-bg); border-radius: 16px; padding: 25px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .header-card { background: linear-gradient(145deg, var(--card-bg) 0%, #0f172a 100%); border: 1px solid rgba(56, 189, 248, 0.15); border-top: 4px solid var(--accent); padding: 25px 30px; margin-top: 10px; position: relative; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 25px rgba(56, 189, 248, 0.05); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .header-card:hover { box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 35px rgba(56, 189, 248, 0.1); }
+    .header-card::before { content: ''; position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; background: var(--accent); filter: blur(90px); opacity: 0.15; border-radius: 50%; pointer-events: none; }
+    .header-block { display: flex; align-items: center; justify-content: center; gap: 25px; position: relative; z-index: 1; }
+    .header-block img { height: 110px; width: auto; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4)); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    .header-card:hover .header-block img { transform: scale(1.08) rotate(-3deg); }
+    .header-block h1 { margin: 0; text-align: left; font-size: 2.1rem; line-height: 1.2; font-weight: 800; color: #fff !important; background: linear-gradient(135deg, #ffffff 0%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 4px 15px rgba(0,0,0,0.2); letter-spacing: -0.5px; }
+    
+    /* Стили для переключателя языка */
+    .lang-switch { position: absolute; top: 20px; right: 25px; display: flex; align-items: center; gap: 6px; color: var(--text-muted); text-decoration: none; font-weight: bold; font-size: 0.9rem; padding: 6px 10px; border-radius: 8px; border: 1px solid transparent; transition: all 0.2s ease; z-index: 10; }
+    .lang-switch:hover { color: var(--accent); background: rgba(56, 189, 248, 0.1); border-color: var(--accent); }
+    .lang-switch svg { width: 18px; height: 18px; margin-right: 6px;}
+
+    /* Стили для кнопок скачивания приложений */
+    .app-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+    .app-btn { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 8px 16px; border-radius: 8px; color: var(--text-main); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: all 0.2s ease; }
+    .app-btn:hover { background: rgba(56, 189, 248, 0.1); border-color: var(--accent); color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15); }
+    .app-btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+    h2 { color: #fff; margin-top: 0; border-bottom: 1px solid var(--border); padding-bottom: 10px; font-size: 1.4rem; }
+    .alert { background: rgba(56, 189, 248, 0.1); border-left: 4px solid var(--accent); padding: 15px 20px; border-radius: 0 12px 12px 0; margin-bottom: 30px; font-size: 1.1rem; }
+    .step { margin-bottom: 25px; display: flex; align-items: flex-start; }
+    .step-num { flex-shrink: 0; background: var(--accent); color: #fff; width: 30px; height: 30px; text-align: center; border-radius: 50%; line-height: 30px; font-weight: bold; margin-right: 15px; margin-top: 2px; }
+    .step-content { flex-grow: 1; }
+    .link { color: var(--accent); text-decoration: none; word-break: break-all; font-weight: bold; }
+    .link:hover { text-decoration: underline; }
+    .toggle-btn { background-color: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; margin-top: 10px; transition: all 0.2s ease; display: inline-block; }
+    .toggle-btn:hover { background-color: rgba(56, 189, 248, 0.1); }
+    .screenshot-content { margin-top: 15px; background: #0f172a; border: 1px dashed var(--border); border-radius: 10px; padding: 15px; text-align: center; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+    .screenshot-content img { width: 75%; max-width: 100%; border-radius: 8px; display: block; margin: 0 auto; box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
+    .support-card { border: 2px solid var(--warning); background-color: rgba(245, 158, 11, 0.05); }
+    .support-title { color: var(--warning); font-size: 1.3rem; font-weight: bold; margin-bottom: 15px; }
+    .support-links { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+    .support-link-item { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-main); background: var(--card-bg); padding: 12px 18px; border-radius: 10px; border: 1px solid var(--border); transition: all 0.2s ease; font-weight: bold; }
+    .support-link-item:hover { border-color: var(--warning); background: rgba(245, 158, 11, 0.1); transform: translateX(5px); }
+    .support-icon { width: 24px; height: 24px; color: var(--warning); }
+    
+    /* Обводка красного цвета */
+    .faq-card { border-top: 4px solid #ef4444; }
+    .faq-title { display: flex; align-items: center; gap: 10px; border-bottom: none; padding-bottom: 0; margin-bottom: 20px; }
+    details.faq-item { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 12px; transition: all 0.3s ease; }
+    details.faq-item:last-child { margin-bottom: 0; }
+    details.faq-item[open] { background: rgba(56, 189, 248, 0.05); border-color: rgba(56, 189, 248, 0.3); }
+    summary.faq-question { padding: 16px 20px; font-weight: 600; font-size: 1.05rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--text-main); }
+    summary.faq-question::-webkit-details-marker { display: none; }
+    summary.faq-question::after { content: "+"; color: var(--accent); font-size: 1.5rem; line-height: 1; transition: transform 0.3s ease; }
+    details.faq-item[open] summary.faq-question::after { content: "−"; transform: rotate(180deg); }
+    .faq-answer { padding: 0 20px 18px 20px; color: var(--text-muted); border-top: 1px solid rgba(255,255,255,0.05); margin-top: 5px; padding-top: 15px; }
+    .faq-answer p { margin-top: 0; margin-bottom: 10px; }
+    .faq-answer p:last-child { margin-bottom: 0; }
+    .faq-answer ul { margin: 10px 0; padding-left: 20px; }
+    .faq-answer li { margin-bottom: 6px; }
+    .toc-card { border-left: 4px solid var(--accent); }
+    .toc-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+    .toc-link { color: var(--text-main); text-decoration: none; background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 12px 16px; border-radius: 10px; transition: all 0.2s ease; display: block; font-weight: 500; }
+    .toc-link:hover { border-color: var(--accent); background: rgba(56, 189, 248, 0.05); transform: translateX(5px); }
+    @media (max-width: 480px) { .header-card { padding: 20px 15px; } .header-block { flex-direction: column; text-align: center; gap: 15px; } .header-block h1 { text-align: center; font-size: 1.7rem; } .header-block img { height: 90px; } .lang-switch { top: 10px; right: 10px; padding: 4px 8px; font-size: 0.8rem; } }
+    /* Блок основного бота */
+    .bot-card { border-top: 4px solid var(--success); background: linear-gradient(180deg, rgba(16, 185, 129, 0.05) 0%, transparent 100%); }
+    .bot-title { display: flex; align-items: center; gap: 10px; color: var(--success); font-size: 1.3rem; font-weight: bold; margin-bottom: 12px; }
+    .bot-desc { color: var(--text-muted); margin-bottom: 20px; font-size: 1.05rem; }
+    .bot-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--success); color: #fff !important; text-decoration: none; padding: 14px 24px; border-radius: 12px; font-weight: bold; font-size: 1.1rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25); text-align: center; }
+    .bot-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4); background: #059669; text-decoration: none; }
+    .bot-btn svg { width: 22px; height: 22px; }
+
+    a.cyber-link {
+    color: #38bdf8; /* Голубой цвет, как у ваших заголовков */
+    text-decoration: none;
+    border-bottom: 1px dashed rgba(56, 189, 248, 0.5); /* Легкий пунктир вместо грубого подчеркивания */
+    transition: all 0.2s ease-in-out;
+    font-weight: 500;
+    }
+
+    a.cyber-link:hover {
+        color: #fbbf24; /* Золотистый цвет при наведении, как у вас в summary */
+        border-bottom-color: #fbbf24;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    
+    <div class="card header-card">
+        <a href="file:///C:/Users/roma9/%D0%9C%D0%BE%D0%B9%20%D0%B4%D0%B8%D1%81%D0%BA/Docs/vpn/guide_setup/index_en.html" class="lang-switch" title="English version">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            EN
+        </a>
+
+        <div class="header-block">
+            <img src="./index_start_files/CyberCrab_logo.png" alt="CyberCrab Logo" style="height: 96px; width: auto; border-radius: 4px;"> 
+            <h1 style="color: white">Инструкция по настройке <span style="white-space: nowrap;">V​Р​N</span></h1>
+        </div>
+    </div>
+
+    <div class="card bot-card">
+        <div class="bot-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"></path><rect width="16" height="12" x="4" y="8" rx="2"></rect><path d="M2 14h2"></path><path d="M20 14h2"></path><path d="M15 13v2"></path><path d="M9 13v2"></path></svg>
+            Получить доступ к <span style="white-space: nowrap;">V​Р​N</span>
+        </div>
+        <div class="bot-desc">
+            Все управление подпиской, выдача ключей, проверка остатка трафика и оплата происходят в нашем официальном Telegram-боте. Перейдите в него, чтобы начать.
+        </div>
+        <a href="https://t.me/cybercrab_cc_vpn_bot" target="_blank" rel="noopener noreferrer" class="bot-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4"></path></svg>
+            Открыть Telegram-бота
+        </a>
+    </div>
+
+    <div class="card support-card">
+        <div class="support-title">Служба поддержки</div>
+        <p>Если у вас не работает телеграм и вы не можете купить через бота подписку, напишите в поддержку, и вам предоставят временный доступ для работы с ботом</p>
+        
+        <div class="support-links">
+            <a href="https://t.me/rchrd_cc" target="_blank" class="support-link-item">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="support-icon"><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4"></path></svg>
+                Telegram
+            </a>
+            
+            <a href="https://wa.me/+995599009666?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9C%D0%BD%D0%B5%20%D0%BD%D0%B5%D0%BE%D0%B1%D1%85%D0%BE%D0%B4%D0%B8%D0%BC%20%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%20%D0%B4%D0%BB%D1%8F%20%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D1%8F." target="_blank" rel="noopener noreferrer" class="support-link-item">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="support-icon"><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"></path></svg>
+                WhatsApp
+            </a>
+            
+            <a href="mailto:support@cybercrab.cc?subject=%D0%97%D0%B0%D0%BF%D1%80%D0%BE%D1%81%20%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BA%D0%BB%D1%8E%D1%87%D0%B0&amp;body=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9C%D0%BD%D0%B5%20%D0%BD%D0%B5%D0%BE%D0%B1%D1%85%D0%BE%D0%B4%D0%B8%D0%BC%20%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%20%D0%B4%D0%BB%D1%8F%20%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D1%8F." class="support-link-item">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="support-icon"><rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect><polyline points="3 7 12 13 21 7"></polyline></svg>
+                support@cybercrab.cc
+            </a>
+        </div>
+
+    </div>
+
+    <div class="card faq-card">
+        <h2 class="faq-title">❓ F.A.Q. (Вопросы)</h2>
+        
+        <details class="faq-item" open="">
+            <summary class="faq-question">Есть ли пробный период у вашего сервиса?</summary>
+            <div class="faq-answer">
+                <p>Да, конечно! Мы предоставляем бесплатный тестовый период, чтобы вы могли лично оценить скорость и стабильность работы перед покупкой.</p>
+                <p>Пробная подписка выдается на <b>3 дня</b> и включает <b>2 ГБ трафика</b> с возможностью одновременного подключения на <b>1 устройстве</b>. Этого времени и объема данных более чем достаточно для комфортного серфинга и тестирования.</p>
+            </div>
+        </details>
+
+        <details class="faq-item" open="">
+            <summary class="faq-question">Зачем мне использовать Telegram-бота, если я могу купить доступ напрямую через поддержку?</summary>
+            <div class="faq-answer">
+                <p>Транзитные ключи от поддержки — это лишь временная мера для первоначальной настройки. Полноценная работа через Telegram-бота необходима для вашего же удобства.</p>
+                <p><b>Во-первых,</b> бот — это ваш полноценный личный кабинет. В нем вы получаете удобный доступ к управлению своей подпиской: можете в любой момент посмотреть остаток трафика, узнать дату окончания тарифа и продлить доступ в пару кликов.</p>
+                <p><b>Во-вторых,</b> это автоматизирует процесс выдачи. Пользователи могут оплатить тариф и получить персональный ключ моментально, без ожидания ответа оператора.</p>
+                <p><span style="color: #ef8e76; font-style: italic;">Обратите внимание:</span> в ближайшее время на этом сайте появится специальная MTProto-ссылка. Это встроенный протокол Telegram: вам достаточно будет просто кликнуть по ней, и ваш мессенджер моментально подключится к нашим серверам для комфортного перехода в бота.</p>
+            </div>
+        </details>
+
+        <details class="faq-item" open="">
+            <summary class="faq-question">Что значит "По правилам / Глобальный / Прямой" в приложении FLClashX?</summary>
+            <div class="faq-answer">
+                <p>Это режимы маршрутизации. Они указывают вашему <span style="white-space: nowrap;">V​Р​N</span>-приложению, как именно нужно сортировать интернет-трафик.</p>
+                <ul>
+                    <li><strong>По правилам (Rule / Routing)</strong> — это «умный» режим, который <span style="color: #31bae3; font-style: italic;">используется по умолчанию</span>. Приложение само разделяет трафик по заложенным в него правилам: российские сайты (банки, Госуслуги, маркетплейсы) открываются напрямую через вашего провайдера, а соцсети и зарубежные сервисы идут через <span style="white-space: nowrap;">V​Р​N</span>. Это самый удобный режим на каждый день, чтобы ничего не ломалось.</li>
+                    <li><strong>Глобальный (Global / Proxy)</strong> — режим полного проксирования. Абсолютно весь интернет-трафик на вашем устройстве принудительно отправляется через <span style="white-space: nowrap;">V​Р​N</span>-сервер за границу. Используйте его, если вам нужно скрыть свой реальный IP-адрес абсолютно для всех сайтов без исключения. <strong>Важно:</strong> в этом режиме многие российские банковские приложения могут не работать. <br><span style="color: #ef8e76; font-style: italic;">Обратите внимание</span>: после включения этого режима зайдите во вкладку "Прокси" и убедитесь, что в появившейся группе Global выбрана группа CyberCrab <span style="white-space: nowrap;">V​Р​N</span> (Selector), а не DIRECT.</li>
+                    <li><strong>Прямой (Direct)</strong> — режим полного обхода VPN. Весь трафик идет напрямую, минуя защищенный туннель. Фактически, <span style="white-space: nowrap;">V​Р​N</span> перестает маскировать ваш IP-адрес и открывать доступ к ресурсам, даже если само подключение активно. Обычно этот режим нужен только разработчикам для тестирования сети.</li>
+                </ul>
+            </div>
+        </details>        
+
+        <details class="faq-item" open="">
+            <summary class="faq-question">Почему в списке несколько серверов (Apple, Google, Microsoft)? <br>Какой выбрать?</summary>
+            <div class="faq-answer">
+                <p>Все эти подключения ведут на один и тот же супербыстрый сервер. Разница — только в типе маршрутизации трафика.</p>
+                <p>Современные системы анализа сетей могут ограничивать нестандартный трафик. Чтобы обеспечить стабильность, наше приложение маскирует ваш интернет под посещение популярных ресурсов:</p>
+                <ul>
+                    <li><b>Apple</b> — маршрутизация через сервера Apple.</li>
+                    <li><b>Google</b> — имитация загрузки данных от Google.</li>
+                    <li><b>Microsoft</b> — маскировка под обычное обновление Windows.</li>
+                </ul>
+                <p><b>Что делать:</b> Подключайтесь к любому из них! Если вдруг ваш оператор связи решит временно ограничить один из маршрутов, вы просто выбираете в списке другой — и сеть снова работает стабильно. Это ваша личная гарантия бесперебойного доступа.</p>
+            </div>
+        </details>
+    </div>
+
+
+    <div class="card toc-card">
+        <h2>📑 Оглавление</h2>
+        <ul class="toc-list">
+            <li><a href="file:///C:/Users/roma9/%D0%9C%D0%BE%D0%B9%20%D0%B4%D0%B8%D1%81%D0%BA/Docs/vpn/guide_setup/index.html#step-by-step-guide" class="toc-link">📖 Пошаговая инструкция по подключению пробной подписки </a></li>
+            <li><a href="file:///C:/Users/roma9/%D0%9C%D0%BE%D0%B9%20%D0%B4%D0%B8%D1%81%D0%BA/Docs/vpn/guide_setup/index.html#android-tv" class="toc-link">📺 Перенос ссылки на Android TV (LocalSend)</a></li>
+            <li><a href="file:///C:/Users/roma9/%D0%9C%D0%BE%D0%B9%20%D0%B4%D0%B8%D1%81%D0%BA/Docs/vpn/guide_setup/index.html#v2raytun" class="toc-link">⚙️ Настройка умной маршрутизации для v2raytun</a></li>
+        </ul>
+    </div>
+
+    <div class="card" id="step-by-step-guide">
+        <h2>📖 Пошаговая инструкция по подключению </h2>
+        <h3>Этап 1: Временное подключение (Если нет доступа к Telegram)</h3>
+
+        <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+                <b>Запросите временную ссылку.</b> Если у вас сейчас нет доступа к Telegram, напишите в нашу службу поддержки любым удобным для вас способом. В ответ вы получите ссылку для разового подключения. Скопируйте её. <i>Внимание: ссылка активна ровно 1 час.</i>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+                <b>Скачайте приложение Incy.</b> Загрузите официальное приложение для вашего устройства по ссылкам ниже. Оно отлично подходит для быстрого получения временного доступа.
+                
+                <div class="app-links">
+                    <a href="https://apps.apple.com/us/app/incy/id6756943388" target="_blank" class="app-btn">
+                        <svg viewBox="0 0 24 24"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.943 3.96.988 1.695.046 2.682-1.42 3.685-2.919 1.154-1.714 1.63-3.383 1.66-3.469-.036-.015-3.238-1.246-3.264-4.97-.02-3.09 2.518-4.57 2.625-4.636-1.455-2.13-3.69-2.42-4.524-2.47-1.748-.12-3.526 1.066-4.468 1.066M14.78 4.092c.783-.951 1.309-2.276 1.164-3.592-1.127.045-2.515.752-3.322 1.713-.728.85-1.328 2.205-1.164 3.491 1.26.098 2.527-.66 3.322-1.612z"></path></svg>
+                        App Store
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=llc.itdev.incy" target="_blank" class="app-btn">
+                        <svg viewBox="0 0 24 24"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4483-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0004.5511-.4482.9997-.9993.9997zm-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993s-.4482.9997-.9993.9997zm11.4045-6.02l1.9973-3.4592c.1158-.201.046-.4573-.1558-.5732-.2006-.1158-.4569-.0461-.5731.1554l-2.0298 3.5158c-1.464-.6728-3.2081-1.0468-5.1201-1.0468s-3.656.374-5.1201 1.0468l-2.0298-3.5158c-.1158-.2015-.3721-.2716-.5731-.1554-.2018.1159-.2716.3722-.1558.5732l1.9973 3.4592c-4.1487 2.2726-6.966 6.5501-7.1352 11.536h23.9168c-.1688-4.9859-2.9861-9.2634-7.1352-11.536z"></path></svg>
+                        Google Play
+                    </a>
+                    <a href="https://github.com/INCY-DEV/incy-platforms" target="_blank" class="app-btn">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"></path></svg>
+                        GitHub (Другие ОС)
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+                <b>Активируйте временный <span style="white-space: nowrap;">V​Р​N</span>.</b> Откройте установленное приложение Incy и просто нажмите кнопку <b>«Вставить»</b>. Теперь у вас есть доступ к сети для перехода в Telegram и оформления постоянного тарифа.
+                <br><button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Показать скриншот</button>
+                <div class="screenshot-content" style="display: none;">
+                    <img src="./index_start_files/incy_screen1.jpg" alt="Incy Импорт">
+                </div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+                <b>Подготовьте основной клиент.</b> Чтобы избежать путаницы в дальнейшем, используйте <b>Incy</b> только для получения временного доступа. Для постоянной работы рекомендуем использовать следующие клиенты: <b>RabbitHole</b> для iPhone, <b>Koala Clash / FLClashX</b> для Windows и Linux, и <b>FLClashX</b> для остальных систем. <br><br><i>После успешной настройки постоянной подписки временное приложение Incy можно удалить, чтобы избежать путаницы. Однако вы можете оставить его в качестве основного <span style="white-space: nowrap;">V​Р​N</span>-клиента, так как оно доступно на всех платформах. В этом случае, после добавления новой подписки через бота, просто не забудьте удалить старый временный профиль.</i>
+            </div>
+        </div>
+
+        <br>
+        <h3>Этап 2: Оформление пробного периода и настройка</h3>
+
+        <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+                <b>Запустите Telegram-бота.</b> Нажмите на зеленую кнопку <b>«Открыть Telegram-бота»</b> (выше на этой странице), а затем нажмите <b>«СТАРТ»</b> непосредственно в открывшемся чате. Всю дальнейшую информацию (просмотр оставшегося трафика, количество устройств, продление) вы сможете отслеживать в этом боте.
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">6</div>
+            <div class="step-content">
+                <b>Пройдите регистрацию.</b> Выберите удобный язык интерфейса. Внимательно ознакомьтесь с правилами сервиса и нажмите <b>«Принимаю правила»</b>. Если у вас есть реферальный код или промокод — введите его, в противном случае нажмите <b>«Пропустить»</b>.
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">7</div>
+            <div class="step-content">
+                <b>Получите бесплатный доступ.</b> В меню бота нажмите <b>«🚀 Подключиться бесплатно 🚀»</b>, а затем выберите <b>«🔗 Подключиться»</b>.
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">8</div>
+            <div class="step-content">
+                <b>Откройте личный кабинет.</b> Перед вами появится мини-приложение со страницей вашей подписки. В верхней части экрана вы всегда можете проверить актуальный статус работы, дату истечения тарифа и остаток трафика.
+                <br><button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Показать скриншот</button>
+                <div class="screenshot-content" style="display: none;">
+                    <img src="./index_start_files/subpage_screen1.jpg" alt="Личный кабинет">
+                </div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">9</div>
+            <div class="step-content">
+                <b>Установите приложение.</b> На странице подписки нажмите на блок <b>«Установка приложения»</b>, чтобы развернуть его. В этом же блоке нажмите на кнопку скачивания и установите клиент, подходящий для вашей системы.
+                <br><button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Показать скриншот</button>
+                <div class="screenshot-content" style="display: none;">
+                    <img src="./index_start_files/subpage_screen2.jpg" alt="Личный кабинет">
+                </div>            
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">10</div>
+            <div class="step-content">
+                <b>Разрешите добавление <span style="white-space: nowrap;">V​Р​N</span> (Для пользователей iPhone).</b> Откройте скачанное приложение. Нажмите на кнопку подключения <span style="white-space: nowrap;">V​Р​N</span>, примите системные соглашения и введите пароль от вашего устройства (или используйте Face ID) для создания <span style="white-space: nowrap;">V​Р​N</span>-профиля.
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">11</div>
+            <div class="step-content">
+                <b>Добавьте подписку.</b> Вернитесь на страницу подписки в мини-приложении Telegram и раскройте блок <b>«Добавление подписки»</b>. Нажмите на кнопку <b>«+ Добавить подписку»</b>. У вас автоматически откроется ранее установленное приложение, и подписка будет добавлена.
+                <br><button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Показать скриншот</button>
+                <div class="screenshot-content" style="display: none;">
+                    <img src="./index_start_files/subpage_screen3.jpg" alt="Личный кабинет">
+                </div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">12</div>
+            <div class="step-content">
+                <b>Настройте маршрутизацию (Только если вы оставили Incy).</b> Для комфортной работы рекомендуем вернуться на страницу подписки в боте, нажать на блок <b>«Добавить профиль маршрутизации»</b> и кликнуть по соответствующей кнопке ниже. Это добавит умные правила, которые позволят российским сайтам и банковским приложениям работать напрямую без необходимости отключать <span style="white-space: nowrap;">V​Р​N</span>.
+                <br><button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Показать скриншот</button>
+                <div class="screenshot-content" style="display: none;">
+                    <img src="./index_start_files/subpage_screen4.jpg" alt="Личный кабинет">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" id="android-tv">
+        <h2>📺 Перенос ссылки на Android TV (LocalSend)</h2>
+        <p style="color: var(--text-muted); margin-bottom: 20px;">Используйте этот способ, чтобы не вводить длинную ссылку с пульта.</p>
+        
+        <div class="step">
+            <div class="step-num">0</div>
+            <div class="step-content">
+                <b>Скопируйте ссылку подписки из бота.</b> Откройте нашего Telegram-бота и отправьте команду <b>/start</b>. В меню выберите раздел <b>«Подписка»</b>. В появившемся сообщении найдите блок <i>«🔗 Ссылка для подключения»</i> и просто нажмите на ссылку под ним, чтобы скопировать её в буфер обмена.
+                <br><button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Показать скриншот</button>
+                <div class="screenshot-content" style="display: none;">
+                    <img src="./index_start_files/bot_screen1.jpg" alt="Подписка">
+                </div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+                <b>Установка LocalSend на оба устройства.</b><br>
+                Если у вас Android TV, установите приложение LocalSend на телевизор и на смартфон (или компьютер), с которого будете передавать ссылку подписки. <br>
+                Скачать: <a href="https://localsend.org/download" target="_blank" class="cyber-link">localsend.org/download</a>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+                <b>Подключение к одной сети.</b><br>
+                Оба ваших устройства должны быть в одной Wi-Fi сети. Вы можете со смартфона раздать Wi-Fi (точка доступа) и подключить Android TV к этой сети.
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+                <b>Вставка ссылки.</b><br>
+                Зайдите в приложение LocalSend на смартфоне и нажмите кнопку <b>«Вставить»</b>.
+                <br><button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Показать скриншот</button>
+                <div class="screenshot-content" style="display: none;">
+                    <img src="./index_start_files/localsend_screen1.jpg" alt="LocalSend Вставить">
+                </div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+                <b>Отправка на ТВ.</b><br>
+                Выберите устройство (ваш Android TV), на которое нужно передать ссылку.
+                <br><button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Показать скриншот</button>
+                <div class="screenshot-content" style="display: none;">
+                    <img src="./index_start_files/localsend_screen2.jpg" alt="LocalSend Выбор устройства">
+                </div>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">
+                <b>Прием файла.</b><br>
+                На телевизоре примите входящий файл и скопируйте полученный текст.
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">6</div>
+            <div class="step-content">
+                <b>Активация подписки.</b><br>
+                Откройте скопированную ссылку в браузере телевизора и перейдите на <br><a href="file:///C:/Users/roma9/%D0%9C%D0%BE%D0%B9%20%D0%B4%D0%B8%D1%81%D0%BA/Docs/vpn/guide_setup/index.html#step-by-step-guide" class="cyber-link">Этап 2, шаг 9 📖 Пошаговой инструкции по подключению </a>, <b>ИЛИ</b> просто откройте установленное <span style="white-space: nowrap;">V​Р​N</span>-приложение (V2Raytun или FLClashX) и вставьте ссылку туда, как описано ниже.
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Если на телевизоре установлен V2Raytun</h2>
+            
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    Нажмите <b>«+»</b> в правом верхнем углу экрана.
+                    <br><button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Показать скриншот</button>
+                    <div class="screenshot-content" style="display: none;">
+                        <img src="./index_start_files/v2raytun_screen1.jpg" alt="V2Raytun Добавить">
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    Выберите <b>«Импорт из буфера обмена»</b>. Готово!
+                    <br><button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Показать скриншот</button>
+                    <div class="screenshot-content" style="display: none;">
+                        <img src="./index_start_files/v2raytun_screen2.jpg" alt="V2Raytun Импорт">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Если на телевизоре установлен FLClashX</h2>
+            
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    В приложении перейдите в профили и нажмите <b>«+ Добавить профиль»</b>.
+                    <br><button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Показать скриншот</button>
+                    <div class="screenshot-content" style="display: none;">
+                        <img src="./index_start_files/flclashx_screen1.jpg" alt="FLClashX Добавить профиль">
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    Вставьте вашу ссылку подписки из буфера обмена в поле URL и нажмите <b>«Отправить»</b>.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card" id="v2raytun">
+        <h2>Дополнительно: Настройка умной маршрутизации для v2raytun</h2>
+        <p style="color: var(--text-muted); margin-bottom: 20px;">Для остальных клиентов эта функция работает по-умолчанию</p>
+
+        <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">
+                <b>Откройте настройки маршрутизации.</b> В приложении v2raytun перейдите во вкладку <b>«Настройки»</b> (иконка шестеренки) и выберите раздел <b>«Правила трафика»</b>.
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">
+                <b>Найдите готовые правила.</b> В открывшемся меню перейдите в подраздел <b>«Правила от сообщества»</b>. 
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">
+                <b>Установите профиль маршрутизации.</b> Пролистайте список, найдите профиль с названием <b>«.RU без <span style="white-space: nowrap;">V​Р​N</span>»</b> и нажмите кнопку <b>«Установить»</b> рядом с ним.
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+                <b>Активируйте функцию.</b> Вернитесь на один шаг назад (в основное меню «Правила трафика») и включите самый верхний тумблер <b>«Включить функцию»</b>.
+            </div>
+        </div>
+
+        <div style="background-color: rgba(56, 189, 248, 0.1); border-left: 4px solid #38bdf8; padding: 15px; border-radius: 0 8px 8px 0; margin-top: 15px;">
+            <i>💡 <b>Для чего это нужно?</b><br>
+            Включение этого правила указывает приложению автоматически сортировать ваш интернет-трафик. Зарубежные ресурсы и социальные сети пойдут через защищенный <span style="white-space: nowrap;">V​Р​N</span>-туннель, а российские сайты, маркетплейсы и банковские приложения (например, Сбербанк, Т-Банк, Госуслуги) будут работать напрямую. Это избавит вас от необходимости постоянно включать и выключать <span style="white-space: nowrap;">V​Р​N</span> — всё будет работать стабильно и без сбоев.</i>
+        </div>
+    </div>
+
+
+    <div style="text-align: center; margin-top: 35px; margin-bottom: 15px; font-size: 0.9em;">
+        <a href="file:///C:/Users/roma9/%D0%9C%D0%BE%D0%B9%20%D0%B4%D0%B8%D1%81%D0%BA/Docs/vpn/guide_setup/terms.html" style="color: var(--text-muted); text-decoration: none; margin: 0px 10px; transition: color 0.2s;" onmouseover="this.style.color=&#39;var(--accent)&#39;" onmouseout="this.style.color=&#39;var(--text-muted)&#39;">Пользовательское соглашение</a>
+        <span style="color: var(--border);">|</span>
+        <a href="file:///C:/Users/roma9/%D0%9C%D0%BE%D0%B9%20%D0%B4%D0%B8%D1%81%D0%BA/Docs/vpn/guide_setup/policy.html" style="color: var(--text-muted); text-decoration: none; margin: 0px 10px; transition: color 0.2s;" onmouseover="this.style.color=&#39;var(--accent)&#39;" onmouseout="this.style.color=&#39;var(--text-muted)&#39;">Политика конфиденциальности</a>
+    </div>
+
+</div>
+
+<script>
+    function toggleScreenshot(btn) {
+        var content = btn.nextElementSibling;
+        if (content.style.display === "none") {
+            content.style.display = "block";
+            btn.innerText = "🙈 Скрыть скриншот";
+        } else {
+            content.style.display = "none";
+            btn.innerText = "👁️ Показать скриншот";
+        }
+    }
+</script>
+
+
+
+</body></html>
