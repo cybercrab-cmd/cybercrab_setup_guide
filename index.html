@@ -30,14 +30,12 @@
             display: flex; justify-content: space-between; align-items: center; 
             padding: 10px 20px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; 
         }
-        
+
+
         .logo-box { display: flex; align-items: center; }
-        .logo-box img { 
-            margin-right: 10px; height: 100px; width: auto; 
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+        .logo-box img { margin-right: 16px; height: 100px; width: auto; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .logo-box:hover img { transform: scale(1.08) rotate(-3deg); }
-        .logo-box span { font-weight: 800; font-size: 2.2rem; letter-spacing: -1px; line-height: 80px; }
+        .logo-box span { font-weight: 800; font-size: 1.8rem; letter-spacing: -1px; }
         .logo-text { white-space: nowrap; font-weight: bold; }
         .vpn-text { margin-left: 2px; color: #007bff; }
 
@@ -168,16 +166,18 @@
 
         /* ================= Адаптивность (Медиа-запросы) ================= */
         @media (max-width: 600px) {
-            body { font-size: 14px; }
-            .header { padding: 8px 10px; }
-            .logo-box img { height: 80px; } /* Немного уменьшил лого для мобильных по умолчанию */
-            h1 { font-size: 1.6em; }
+            /* Меняем html вместо body! Базовый размер браузера обычно 16px, мы ставим 14px или 13px */
+            html { font-size: 14px; } 
+            
+            .header { padding: 10px; margin-bottom: 15px; }
+            .logo-box img { height: 70px; margin-right: 8px; }
+            
+            /* Теперь 1.3rem будет считаться от 14px, а не от 16px, и текст станет аккуратным */
+            .logo-box span { font-size: 1.3rem; } 
+            .lang-link { font-size: 0.75rem; padding: 4px 10px; }
             .card { padding: 15px; }
         }
 
-        @media (max-width: 480px) {
-            .logo-box span { font-size: 1.5rem; line-height: 80px; }
-        }
     </style>
 </head>
 <body>
