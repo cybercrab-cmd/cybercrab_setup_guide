@@ -639,13 +639,16 @@
             if (data.status === 'success' && data.link) {
                 btn.innerHTML = "✅ Подключаем...";
                 
+                // Формируем ссылку для Incy
+                const incyLink = 'incy://import/' + encodeURIComponent(data.link);
+                
                 statusDiv.className = "status-success";
                 statusDiv.innerHTML = "Открываем приложение для импорта...<br>";
-                statusDiv.innerHTML += `<a href="${data.link}" class="fallback-btn">👉 Нажми сюда, если ничего не произошло</a>`;
+                statusDiv.innerHTML += `<a href="${incyLink}" class="fallback-btn">👉 Нажми сюда, если ничего не произошло</a>`;
                 
-                // 4. DEEP LINK МАГИЯ
+                // 4. DEEP LINK МАГИЯ (для Incy)
                 setTimeout(() => {
-                    window.location.href = data.link;
+                    window.location.href = incyLink;
                 }, 800);
             } else {
                 throw new Error("Неверный формат ответа от сервера");
