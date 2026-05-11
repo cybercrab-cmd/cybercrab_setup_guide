@@ -47,18 +47,27 @@
         .lang-link:hover { color: var(--accent); border-color: var(--accent); }
 
         /* ================= Кнопки приложений ================= */
-        .app-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .app-links { 
+            display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; 
+        }
         .app-btn { 
-            display: inline-flex; align-items: center; gap: 8px; 
+            display: flex; /* Меняем на flex для выравнивания */
+            flex: 1 1 130px; /* Кнопки будут одинаковой ширины и смогут растягиваться */
+            justify-content: center; /* Центрируем иконку и текст внутри кнопки */
+            align-items: center; gap: 8px; 
             background: rgba(255,255,255,0.05); border: 1px solid var(--border); 
-            padding: 8px 16px; border-radius: 8px; color: var(--text-main); 
+            padding: 10px 16px; /* Чуть увеличили отступ для красоты */
+            border-radius: 8px; color: var(--text-main); 
             text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: all 0.2s ease; 
+            white-space: nowrap; /* Запрещаем тексту переноситься на новую строку */
         }
         .app-btn:hover { 
             background: rgba(56, 189, 248, 0.1); border-color: var(--accent); 
             color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15); 
         }
-        .app-btn svg { width: 18px; height: 18px; fill: currentColor; }
+        .app-btn svg { 
+            width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; 
+        }
 
         /* ================= Timeline (Инструкция) ================= */
         .stepper-card {
