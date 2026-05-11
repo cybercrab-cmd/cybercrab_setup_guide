@@ -3,497 +3,841 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Setup Guide <span style="white-space: nowrap;">V&#8203P&#8203N</span></title>
-<style>
-    :root { --bg-color: #0f172a; --card-bg: #1e293b; --text-main: #f8fafc; --text-muted: #94a3b8; --accent: #38bdf8; --accent-hover: #0284c7; --border: #334155; --success: #10b981; --warning: #f59e0b; }
-    html { scroll-behavior: smooth; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-color); color: var(--text-main); margin: 0; padding: 20px; line-height: 1.6; }
-    .container { max-width: 700px; margin: 0 auto; }
-    .card { background-color: var(--card-bg); border-radius: 16px; padding: 25px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-    .header-card { background: linear-gradient(145deg, var(--card-bg) 0%, #0f172a 100%); border: 1px solid rgba(56, 189, 248, 0.15); border-top: 4px solid var(--accent); padding: 25px 30px; margin-top: 10px; position: relative; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 25px rgba(56, 189, 248, 0.05); transition: transform 0.3s ease, box-shadow 0.3s ease; }
-    .header-card:hover { box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 35px rgba(56, 189, 248, 0.1); }
-    .header-card::before { content: ''; position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; background: var(--accent); filter: blur(90px); opacity: 0.15; border-radius: 50%; pointer-events: none; }
-    .header-block { display: flex; align-items: center; justify-content: center; gap: 25px; position: relative; z-index: 1; }
-    .header-block img { height: 110px; width: auto; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4)); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    .header-card:hover .header-block img { transform: scale(1.08) rotate(-3deg); }
-    .header-block h1 { margin: 0; text-align: left; font-size: 2.1rem; line-height: 1.2; font-weight: 800; color: #fff !important; background: linear-gradient(135deg, #ffffff 0%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 4px 15px rgba(0,0,0,0.2); letter-spacing: -0.5px; }
-    
-    /* Language switch styles */
-    .lang-switch { position: absolute; top: 20px; right: 25px; display: flex; align-items: center; gap: 6px; color: var(--text-muted); text-decoration: none; font-weight: bold; font-size: 0.9rem; padding: 6px 10px; border-radius: 8px; border: 1px solid transparent; transition: all 0.2s ease; z-index: 10; }
-    .lang-switch:hover { color: var(--accent); background: rgba(56, 189, 248, 0.1); border-color: var(--accent); }
-    .lang-switch svg { width: 18px; height: 18px; margin-right: 6px;}
+    <title>VPN Setup Guide | CyberCrab</title>
+    <style>
+        /* ================= Переменные и База ================= */
+        :root {
+            --bg-color: #0f172a; --card-bg: #1e293b; --text-main: #f8fafc;
+            --text-muted: #94a3b8; --accent: #38bdf8; --border: #334155;
+            --success: #10b981; --warning: #f59e0b; --danger: #ef4444;
+        }
+        
+        * { 
+            box-sizing: border-box; 
+            -webkit-tap-highlight-color: transparent; 
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color); color: var(--text-main);
+            margin: 0; padding: 20px; line-height: 1.6;
+        }
+        
+        .container { max-width: 600px; margin: 0 auto; }
 
-    /* Styles for app download buttons */
-    .app-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
-    .app-btn { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 8px 16px; border-radius: 8px; color: var(--text-main); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: all 0.2s ease; }
-    .app-btn:hover { background: rgba(56, 189, 248, 0.1); border-color: var(--accent); color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15); }
-    .app-btn svg { width: 18px; height: 18px; fill: currentColor; }
+        /* ================= Хедер и Логотип ================= */
+        .header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 10px 20px; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; 
+        }
 
-    h2 { color: #fff; margin-top: 0; border-bottom: 1px solid var(--border); padding-bottom: 10px; font-size: 1.4rem; }
-    .step { margin-bottom: 25px; display: flex; align-items: flex-start; }
-    .step-num { flex-shrink: 0; background: var(--accent); color: #fff; width: 30px; height: 30px; text-align: center; border-radius: 50%; line-height: 30px; font-weight: bold; margin-right: 15px; margin-top: 2px; }
-    .step-content { flex-grow: 1; }
-    .link { color: var(--accent); text-decoration: none; word-break: break-all; font-weight: bold; }
-    .link:hover { text-decoration: underline; }
-    .toggle-btn { background-color: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; margin-top: 10px; transition: all 0.2s ease; display: inline-block; }
-    .toggle-btn:hover { background-color: rgba(56, 189, 248, 0.1); }
-    .screenshot-content { margin-top: 15px; background: #0f172a; border: 1px dashed var(--border); border-radius: 10px; padding: 15px; text-align: center; animation: fadeIn 0.3s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
-    .screenshot-content img { width: 75%; max-width: 100%; border-radius: 8px; display: block; margin: 0 auto; box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
-    .support-card { border: 2px solid var(--warning); background-color: rgba(245, 158, 11, 0.05); }
-    .support-title { color: var(--warning); font-size: 1.3rem; font-weight: bold; margin-bottom: 15px; }
-    .support-links { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
-    .support-link-item { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-main); background: var(--card-bg); padding: 12px 18px; border-radius: 10px; border: 1px solid var(--border); transition: all 0.2s ease; font-weight: bold; }
-    .support-link-item:hover { border-color: var(--warning); background: rgba(245, 158, 11, 0.1); transform: translateX(5px); }
-    .support-icon { width: 24px; height: 24px; color: var(--warning); }
-    
-    .faq-card { border-top: 4px solid #ef4444; }
-    .faq-title { display: flex; align-items: center; gap: 10px; border-bottom: none; padding-bottom: 0; margin-bottom: 20px; }
-    details.faq-item { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 12px; transition: all 0.3s ease; }
-    details.faq-item:last-child { margin-bottom: 0; }
-    details.faq-item[open] { background: rgba(56, 189, 248, 0.05); border-color: rgba(56, 189, 248, 0.3); }
-    summary.faq-question { padding: 16px 20px; font-weight: 600; font-size: 1.05rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--text-main); }
-    summary.faq-question::-webkit-details-marker { display: none; }
-    summary.faq-question::after { content: "+"; color: var(--accent); font-size: 1.5rem; line-height: 1; transition: transform 0.3s ease; }
-    details.faq-item[open] summary.faq-question::after { content: "−"; transform: rotate(180deg); }
-    .faq-answer { padding: 0 20px 18px 20px; color: var(--text-muted); border-top: 1px solid rgba(255,255,255,0.05); margin-top: 5px; padding-top: 15px; }
-    .faq-answer p { margin-top: 0; margin-bottom: 10px; }
-    .faq-answer p:last-child { margin-bottom: 0; }
-    .faq-answer ul { margin: 10px 0; padding-left: 20px; }
-    .faq-answer li { margin-bottom: 6px; }
-    .toc-card { border-left: 4px solid var(--accent); }
-    .toc-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
-    .toc-link { color: var(--text-main); text-decoration: none; background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 12px 16px; border-radius: 10px; transition: all 0.2s ease; display: block; font-weight: 500; }
-    .toc-link:hover { border-color: var(--accent); background: rgba(56, 189, 248, 0.05); transform: translateX(5px); }
-    @media (max-width: 480px) { .header-card { padding: 20px 15px; } .header-block { flex-direction: column; text-align: center; gap: 15px; } .header-block h1 { text-align: center; font-size: 1.7rem; } .header-block img { height: 90px; } .lang-switch { top: 10px; right: 10px; padding: 4px 8px; font-size: 0.8rem; } }
-    .bot-card { border-top: 4px solid var(--success); background: linear-gradient(180deg, rgba(16, 185, 129, 0.05) 0%, transparent 100%); }
-    .bot-title { display: flex; align-items: center; gap: 10px; color: var(--success); font-size: 1.3rem; font-weight: bold; margin-bottom: 12px; }
-    .bot-desc { color: var(--text-muted); margin-bottom: 20px; font-size: 1.05rem; }
-    .bot-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: var(--success); color: #fff !important; text-decoration: none; padding: 14px 24px; border-radius: 12px; font-weight: bold; font-size: 1.1rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25); text-align: center; }
-    .bot-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4); background: #059669; text-decoration: none; }
-    .bot-btn svg { width: 22px; height: 22px; }
 
-    a.cyber-link { color: #38bdf8; text-decoration: none; border-bottom: 1px dashed rgba(56, 189, 248, 0.5); transition: all 0.2s ease-in-out; font-weight: 500; }
-    a.cyber-link:hover { color: #fbbf24; border-bottom-color: #fbbf24; }
-</style>
+        .logo-box { display: flex; align-items: center; }
+        .logo-box img { margin-right: 16px; height: 100px; width: auto; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .logo-box:hover img { transform: scale(1.08) rotate(-3deg); }
+        .logo-box span { font-weight: 800; font-size: 1.8rem; letter-spacing: -1px; }
+        .logo-text { white-space: nowrap; font-weight: bold; }
+        .vpn-text { margin-left: 2px; color: #007bff; }
+
+        .lang-link { 
+            color: var(--text-muted); text-decoration: none; font-size: 0.8rem; 
+            font-weight: 600; padding: 5px 12px; border: 1px solid var(--border); 
+            border-radius: 20px; transition: 0.2s; 
+        }
+        .lang-link:hover { color: var(--accent); border-color: var(--accent); }
+
+        /* ================= Кнопки приложений ================= */
+        .app-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .app-btn { 
+            display: inline-flex; align-items: center; gap: 8px; 
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border); 
+            padding: 8px 16px; border-radius: 8px; color: var(--text-main); 
+            text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: all 0.2s ease; 
+        }
+        .app-btn:hover { 
+            background: rgba(56, 189, 248, 0.1); border-color: var(--accent); 
+            color: var(--accent); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15); 
+        }
+        .app-btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+        /* ================= Timeline (Инструкция) ================= */
+        .stepper-card {
+            background: var(--card-bg); padding-left: 8px; padding-bottom: 20px; padding-right: 20px; padding-top: 20px; border-radius: 18px;
+            margin-bottom: 25px; border: 1px solid var(--border);
+            border-top: 4px solid #108eb9;
+        }
+        .stepper-card h3 { margin: 0 0 25px 0; text-align: center; font-size: 1.2rem; }
+        
+        .timeline { position: relative; padding-left: 10px; }
+        .timeline::before {
+            content: ''; position: absolute; left: 24px; top: 10px; bottom: 30px;
+            width: 2px; background: var(--border);
+        }
+        
+        .timeline-step { display: flex; position: relative; margin-bottom: 30px; align-items: flex-start; }
+        .timeline-step:last-child { margin-bottom: 0; }
+        
+        .timeline-icon {
+            width: 30px; height: 30px; background: var(--card-bg); border: 2px solid var(--accent);
+            color: var(--accent); border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-weight: 800; font-size: 0.9rem;
+            margin-right: 18px; z-index: 1; flex-shrink: 0;
+        }
+        
+        .timeline-content { padding-top: 2px; }
+        .timeline-content b { color: #fff; font-size: 1rem; display: block; margin-bottom: 5px; }
+        .timeline-content p { margin: 0; font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+
+        .timeline-content p b {
+            display: inline;
+            margin-bottom: 0;
+        }
+
+        /* ================= Карточки ================= */
+        .card { 
+            background-color: var(--card-bg); border-radius: 16px; padding: 25px; 
+            margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
+            border: 1px solid var(--border); position: relative; overflow: hidden; 
+        }
+        .card-support { border-bottom: 4px solid var(--warning); margin-top: 25px; }
+
+        /* ================= Унифицированные кнопки (Бот и Trial) ================= */
+        .btn-main {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            width: 100%; border: none; padding: 0 24px; border-radius: 14px;
+            height: 56px; /* Жестко фиксируем размер, чтобы <a> и <button> были идентичны */
+            margin-top: 15px; /* Тот самый отступ от текста сверху */
+            font-family: inherit; font-weight: 700; font-size: 1.05rem; 
+            cursor: pointer; text-decoration: none; transition: all 0.3s ease;
+            box-sizing: border-box; color: #282735 !important;;
+        }
+        
+        .btn-bot { 
+            background: linear-gradient(135deg, var(--accent) 0%, #02c7a9 100%); 
+            box-shadow: 0 4px 15px rgba(16, 185, 165, 0.2); 
+        }
+        .btn-bot:hover { 
+            background: linear-gradient(135deg,  #02c7a9 100%, #0284c7 100%);
+            transform: translateY(-2px); box-shadow: 0 6px 20px rgba(9, 239, 216, 0.5);
+        }
+
+        .btn-trial {
+            background: linear-gradient(135deg, var(--accent) 0%, #02c7a9 100%); 
+            box-shadow: 0 4px 15px rgba(16, 185, 165, 0.2); 
+        }
+        .btn-trial:hover {
+            background: linear-gradient(135deg,  #02c7a9 100%, #0284c7 100%);
+            transform: translateY(-2px); box-shadow: 0 6px 20px rgba(9, 239, 216, 0.5);
+        }
+        .btn-trial:disabled {
+            background: var(--border); color: var(--text-muted) !important;
+            cursor: not-allowed; box-shadow: none; transform: none;
+        }
+
+        .vpn-trial-wrapper {
+            margin-bottom: 0;
+            width: 100%;
+        }
+        
+        #vpn-status {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            min-height: 0px;
+            text-align: center;
+        }
+        .status-loading { color: var(--accent); }
+        .status-success { color: var(--success); font-weight: bold; }
+        .status-error { color: var(--danger); font-weight: bold; }
+        
+        .fallback-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 8px;
+            border: 1px solid var(--accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* ================= Диагностическая сетка ================= */
+        .diag-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+        .diag-item {
+            background: var(--card-bg); border: 1px solid var(--border); padding: 18px;
+            border-radius: 16px; cursor: pointer; display: flex; align-items: center; gap: 15px;
+            transition: 0.2s;
+        }
+        .diag-item:hover { border-color: var(--accent); background: rgba(56, 189, 248, 0.05); transform: translateY(-2px); }
+        .diag-item i { font-style: normal; font-size: 1.6rem; }
+        .diag-item .label-box { flex-grow: 1; display: flex; flex-direction: column; }
+        .diag-item .label-heading { font-weight: 700; font-size: 1.05rem; color: #fff; margin-bottom: 2px; }
+        .diag-item .label-desc { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* Эффект нажатия (Active State) */
+        .diag-item:active, .app-btn:active, .btn-mini:active, .support-item:active {
+            transform: scale(0.97); background: rgba(56, 189, 248, 0.1);
+        }
+
+        /* ================= Вьюхи и Инфо-блоки ================= */
+        .view { display: none; animation: fadeIn 0.2s cubic-bezier(0.2, 1, 0.3, 1); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .back-nav { display: inline-flex; align-items: center; gap: 8px; color: var(--accent); cursor: pointer; margin-bottom: 15px; font-weight: 600; font-size: 0.9rem; }
+        .content-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-bottom: 15px; }
+        
+        .instant-fix { background: rgba(16, 185, 129, 0.1); border: 1px solid var(--success); padding: 15px; border-radius: 12px; margin-bottom: 15px; font-size: 0.9rem; }
+        .instant-fix::before { content: '⚡ Instant fix'; display: block; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: var(--success); margin-bottom: 4px; }
+        
+        .success-finish { background: rgba(16, 185, 129, 0.15); border: 1px solid var(--success); padding: 15px; border-radius: 12px; font-size: 0.95rem; text-align: center; font-weight: 600; }
+        .sol-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 12px; border-radius: 12px; margin-bottom: 10px; }
+        .sol-card b { color: var(--accent); font-size: 0.95rem; display: block; }
+        .sol-card p { margin: 4px 0 0; font-size: 0.85rem; color: var(--text-muted); }
+
+        /* Спец блоки */
+        .info-box { background: rgba(56, 189, 248, 0.1); border-left: 4px solid var(--accent); padding: 15px; border-radius: 0 8px 8px 0; margin-top: 15px; font-size: 0.85rem; }
+        .toggle-btn { background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.8rem; margin-top: 8px; }
+        .screenshot-content img { width: 100%; border-radius: 8px; margin-top: 10px; }
+        .cyber-link { color: var(--accent); text-decoration: none; font-weight: bold; border-bottom: 1px dashed; }
+
+        /* ================= Блок предупреждений / советов ================= */
+        .warning-box {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px dashed var(--warning);
+            background: rgba(245, 158, 11, 0.03);
+        }
+
+        .warning-box p {
+            margin: 6px 0 0;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+        .warning-box-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--warning);
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        
+        /* ================= FAQ ================= */
+        .faq-item { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
+        .faq-item summary {
+            padding: 15px; cursor: pointer; color: var(--accent); font-weight: 700; font-size: 1rem;
+            list-style: none; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s;
+        }
+        .faq-item summary:hover { background: rgba(255,255,255,0.02); }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::after { content: '▼'; font-size: 0.7rem; transition: transform 0.3s; opacity: 0.5; }
+        .faq-item[open] summary::after { transform: rotate(180deg); }
+        .faq-answer { padding: 0 15px 15px 15px; color: var(--text-muted); font-size: 0.85rem; }
+
+        /* ================= Поддержка ================= */
+        .support-title { color: var(--warning); font-size: 1.2rem; font-weight: bold; margin-bottom: 10px; text-align: center; }
+        .support-links-grid { display: flex; flex-direction: column; gap: 10px; }
+        .support-item {
+            display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-main);
+            background: rgba(255,255,255,0.02); padding: 12px 18px; border-radius: 12px;
+            border: 1px solid var(--border); transition: 0.2s; font-weight: 600; font-size: 0.9rem;
+        }
+        .support-item:hover { border-color: var(--warning); background: rgba(245, 158, 11, 0.05); transform: translateX(5px); }
+        .support-icon { width: 18px; height: 18px; color: var(--warning); flex-shrink: 0; }
+
+        /* ================= Футер ================= */
+        .footer-links { text-align: center; margin-top: 40px; margin-bottom: 20px; font-size: 0.85rem; border-top: 1px solid var(--border); padding-top: 25px;}
+        .footer-links a { color: var(--text-muted); text-decoration: none; margin: 0 10px; transition: 0.2s; }
+        .footer-links a:hover { color: var(--accent); }
+        .copyright { margin-top: 10px; color: var(--text-muted); opacity: 0.6; }
+
+        /* Сброс глобальных стилей таймлайна для жирного текста внутри предупреждений */
+        .warning-box-header b {
+            display: inline !important;
+            color: inherit !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* ================= Адаптивность (Медиа-запросы) ================= */
+        @media (max-width: 600px) {
+            /* Меняем html вместо body! Базовый размер браузера обычно 16px, мы ставим 14px или 13px */
+            html { font-size: 14px; } 
+            
+            .header { padding: 10px; margin-bottom: 15px; }
+            .logo-box img { height: 70px; margin-right: 8px; }
+            
+            /* Теперь 1.3rem будет считаться от 14px, а не от 16px, и текст станет аккуратным */
+            .logo-box span { font-size: 1.3rem; } 
+            .lang-link { font-size: 0.75rem; padding: 4px 10px; }
+            .card { padding: 15px; }
+        }
+        
+
+    </style>
 </head>
 <body>
 
 <div class="container">
-    
-    <div class="card header-card">
-        <a href="index.html" class="lang-switch" title="Russian version">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-            RU
-        </a>
 
-        <div class="header-block">
-            <img src="img/CyberCrab_logo.png" alt="CyberCrab Logo" style="height: 96px; width: auto; border-radius: 4px;"> 
-            <h1 style="color: white">Setup Guide <span style="white-space: nowrap;">V&#8203P&#8203N</span></h1>
+    <header class="header">
+        <div class="logo-box">
+            <img src="img/CyberCrab_logo.png" alt="🦀">
+            <div class="logo-text">
+                <span>CyberCrab</span><span class="vpn-text">V&ZeroWidthSpace;P&ZeroWidthSpace;N</span>
+            </div>
+        </div>
+        <a href="index.html" class="lang-link">Русский</a>
+    </header>
+
+    <div id="view-main" class="view" style="display: block;">
+
+        <div class="stepper-card">
+            <h3>How to set it up?</h3>
+            <div class="timeline">
+                
+                <div class="timeline-step">
+                    <div class="timeline-icon">1</div>
+                    <div class="timeline-content">
+                        <b>Install the app</b>
+                        <p>To get started, temporarily download the free <b>Incy</b> app to your device:</p>
+                        <div class="app-links">
+                            <a href="https://apps.apple.com/us/app/incy/id6756943388" target="_blank" class="app-btn"><svg viewBox="0 0 24 24"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.943 3.96.988 1.695.046 2.682-1.42 3.685-2.919 1.154-1.714 1.63-3.383 1.66-3.469-.036-.015-3.238-1.246-3.264-4.97-.02-3.09 2.518-4.57 2.625-4.636-1.455-2.13-3.69-2.42-4.524-2.47-1.748-.12-3.526 1.066-4.468 1.066M14.78 4.092c.783-.951 1.309-2.276 1.164-3.592-1.127.045-2.515.752-3.322 1.713-.728.85-1.328 2.205-1.164 3.491 1.26.098 2.527-.66 3.322-1.612z"></path></svg> App Store</a>
+                            <a href="https://play.google.com/store/apps/details?id=llc.itdev.incy" target="_blank" class="app-btn"><svg viewBox="0 0 24 24"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4483-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0004.5511-.4482.9997-.9993.9997zm-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993s-.4482.9997-.9993.9997zm11.4045-6.02l1.9973-3.4592c.1158-.201.046-.4573-.1558-.5732-.2006-.1158-.4569-.0461-.5731.1554l-2.0298 3.5158c-1.464-.6728-3.2081-1.0468-5.1201-1.0468s-3.656.374-5.1201 1.0468l-2.0298-3.5158c-.1158-.2015-.3721-.2716-.5731-.1554-.2018.1159-.2716.3722-.1558.5732l1.9973 3.4592c-4.1487 2.2726-6.966 6.5501-7.1352 11.536h23.9168c-.1688-4.9859-2.9861-9.2634-7.1352-11.536z"></path></svg> Google Play</a>
+                            <a href="https://github.com/INCY-DEV/incy-platforms" target="_blank" class="app-btn"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg> GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-step">
+                    <div class="timeline-icon">2</div>
+                    <div class="timeline-content">
+                        <b>Get a temporary connection</b>
+                        <p>If Telegram is not working, click the button below. You will get access to the network for 1 hour to log into the bot. Clicking the button will open the <b>Incy</b> app and the link will be added automatically.</p>
+                        
+                        <div class="vpn-trial-wrapper">
+                            <button id="trial-btn" class="btn-main btn-trial" onclick="requestTrialVPN()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-clock-hour-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 12l3 2" /><path d="M12 7v5" /></svg>
+                                 V&ZeroWidthSpace;P&ZeroWidthSpace;N for 1 hour
+                            </button>
+                            <div id="vpn-status"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-step">
+                    <div class="timeline-icon">3</div>
+                    <div class="timeline-content">
+                        <b>Go to the Telegram bot</b>
+                        <p>In our bot, you can get a trial period, buy a permanent subscription, and manage your devices. This is your personal dashboard.</p>
+                        
+                        <a href="https://t.me/cybercrab_cc_vpn_bot" target="_blank" class="btn-main btn-bot">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4"></path></svg>
+                            Open Telegram Bot
+                        </a>
+
+                    </div>
+                </div>
+                
+                <div class="timeline-step">
+                    <div class="timeline-icon">4</div>
+                    <div class="timeline-content">
+                        <b>Setup and use</b>
+                        <p>Click the <b>"I want to connect for free"</b> button below to proceed to the step-by-step instructions. This access is temporary and is intended for familiarization with the speed and quality of the service.</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="warning-box" style="margin-left: 12px;">
+                <div class="warning-box-header">
+                    <i>💡</i> <b>Cleanup tip:</b> 
+                </div>
+                <p>
+                    After setting up the main subscription, do not forget to delete the temporary profile (trial_) to avoid confusion with servers in the future.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="diag-grid">
+            <div class="diag-item" onclick="showView('view-setup')">
+                <i>🚀</i>
+                <div class="label-box">
+                  <span class="label-heading">I want to connect for free</span>
+                  <span class="label-desc">Instructions for new users</span>
+                </div>
+            </div>
+
+            <div class="diag-item" onclick="showView('view-payment')">
+                <i>💳</i>
+                <div class="label-box">
+                  <span class="label-heading">How to pay for a subscription?</span>
+                  <span class="label-desc">Payment via SBP, Telegram Stars, and cryptocurrency</span>
+                </div>
+            </div>
+
+            <div class="diag-item" onclick="showView('view-per-app')">
+                <i>📱</i>
+                <div class="label-box">
+                  <span class="label-heading">V&ZeroWidthSpace;P&ZeroWidthSpace;N for selected apps</span>
+                  <span class="label-desc">Split Tunneling on Android</span>
+                </div>
+            </div>
+
+            <div class="diag-item" onclick="showView('view-issues')">
+                <i>🔧</i>
+                <div class="label-box">
+                  <span class="label-heading">Problems with the VPN?</span>
+                  <span class="label-desc">Not working or no internet</span>
+                </div>
+            </div>
+
+            <div class="diag-item" onclick="showView('view-v2ray-routing')">
+                <i>🧬</i>
+                <div class="label-box">
+                  <span class="label-heading">Smart routing in v2raytun</span>
+                  <span class="label-desc">Setting up rules for the app</span>
+                </div>
+            </div>
+
+            <div class="diag-item" onclick="showView('view-share')">
+                <i>📲</i>
+                <div class="label-box">
+                  <span class="label-heading">How to share a subscription?</span>
+                  <span class="label-desc">Transfer to another device via QR</span>
+                </div>
+            </div>
+
+            <div class="diag-item" onclick="showView('view-tv')">
+                <i>📺</i>
+                <div class="label-box">
+                  <span class="label-heading">Set up on TV</span>
+                  <span class="label-desc">Android TV and Smart TV (LocalSend)</span>
+                </div>
+            </div>
+
+            <div class="diag-item" onclick="showView('view-faq')">
+                <i>❓</i>
+                <div class="label-box">
+                  <span class="label-heading">Other questions</span>
+                  <span class="label-desc">Servers, subscriptions, V2Raytun</span>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="card bot-card">
-        <div class="bot-title">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"></path><rect width="16" height="12" x="4" y="8" rx="2"></rect><path d="M2 14h2"></path><path d="M20 14h2"></path><path d="M15 13v2"></path><path d="M9 13v2"></path></svg>
-            Get access to <span style="white-space: nowrap;">V&#8203P&#8203N</span>
+    <div id="view-setup" class="view">
+        <div class="back-nav" onclick="showView('view-main')">← Back to selection</div>
+        <div class="instant-fix">In the bot, click <b>"🚀 Connect for free"</b>.</div>
+        <div class="content-card">
+            <div class="sol-card"><b>1. Start</b><p>Click "Open Telegram Bot" above and enter /start.</p></div>
+            <div class="sol-card"><b>2. Key</b><p>Button "🚀 Connect for free" -> "🔗 Connect".</p></div>
+            <div id="app-step" class="sol-card"><b>3. App</b><p>In the dashboard, download the client for your system and click "+ Add subscription".</p></div>
         </div>
-        <div class="bot-desc">
-            All subscription management, key issuance, traffic balance checks, and payments are handled in our official Telegram bot. Open it to get started.
+        <div class="success-finish">
+            🎉 Done! VPN is connected — ready to use
         </div>
-        <a href="https://t.me/cybercrab_cc_vpn_bot" target="_blank" rel="noopener noreferrer" class="bot-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4"></path></svg>
-            Open Telegram Bot
-        </a>
+
+        <div class="warning-box">
+            <div class="warning-box-header">
+                <i>💡</i> <b>Cleanup tip:</b> 
+            </div>
+            <p>
+                If you previously used temporary access from the site, delete the profile named <b>trial_*</b> from the list in the application after setting up your main subscription. This will prevent confusion with servers.
+            </p>
+        </div>
     </div>
 
-    <div class="card support-card">
-        <div class="support-title">Support Service</div>
-        <p>If Telegram is not working and you cannot purchase a subscription via the bot, contact support to get temporary access to use the bot.</p>
+    <div id="view-payment" class="view">
+        <div class="back-nav" onclick="showView('view-main')">← Back to selection</div>
         
-        <div class="support-links">
-            <a href="https://t.me/rchrd_cc" target="_blank" class="support-link-item">
+        <div class="instant-fix">
+            Use <b style="color: var(--accent);">Telegram Stars</b> for instant 1-click payment directly inside the bot.
+        </div>
+
+        <div class="content-card">
+            <h3 style="margin-top: 0;">Payment via SBP / Bank Transfer (Balance Top-up)</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Follow these instructions to pay via banking app using SBP (QR code):</p>
+            
+            <div class="sol-card"><b>1. Choose a plan</b><p>In the bot menu, click "Buy subscription" -> choose a plan (Basic or Standard) -> choose the desired duration.</p></div>
+            <div class="sol-card"><b>2. Proceed to payment</b><p>Click "Top up balance" -> select "SBP (QR) (Platega)" -> click "Pay via SBP (QR)".</p></div>
+            <div class="sol-card"><b>3. Payment</b><p>Click "Open link" -> "Pay with SBP". Choose your banking app and confirm the payment.</p></div>
+            <div class="sol-card"><b>4. Activation</b><p>After successful payment (balance top-up), return to the bot menu and click "Buy subscription" again.</p></div>
+    
+        </div>
+        <div class="success-finish">
+            🎉 Done! Subscription paid — you can use the VPN
+        </div>
+
+        <div class="warning-box">
+            <div class="warning-box-header">
+                <i>💡</i> <b>Cleanup tip:</b> 
+            </div>
+            <p>
+                If you previously used temporary access from the site, delete the profile named <b>trial_*</b> from the list in the application after setting up your main subscription. This will prevent confusion with servers.
+            </p>
+        </div>
+
+    </div>
+
+    <div id="view-issues" class="view">
+        <div class="back-nav" onclick="showView('view-main')">← Back</div>
+        <div class="diag-grid">
+            <div class="diag-item" onclick="showView('view-issue-connect')"><i>🔌</i> <div class="label">Cannot connect</div></div>
+            <div class="diag-item" onclick="showView('view-issue-internet')"><i>🌐</i> <div class="label">Connected, but not working</div></div>
+            <div class="diag-item" onclick="showView('view-slow-internet')"><i>🐌</i> <div class="label">Slow connection</div></div>
+        </div>
+    </div>
+
+    <div id="view-issue-connect" class="view">
+        <div class="back-nav" onclick="showView('view-issues')">← Back</div>
+        <div class="instant-fix"><b>Check internet without VPN</b><p>If sites do not open without VPN, the problem is not with the VPN.</p></div>
+        <div class="content-card">
+          <div class="sol-card"><b>Check the time:</b> <p>It must be set to automatic in your device settings. A 1-minute difference blocks login.</p></div>
+          <div class="sol-card"><b>ISP is blocking the connection</b> <p>Try changing the network (Wi-Fi / mobile internet).</p></div>
+          <div class="sol-card"><b>Old subscription</b><p>Check your remaining traffic in the bot, and in the app click "Update subscription" (circular arrow).</p></div>
+          <div class="sol-card"><b>Server unavailable</b><p>Try changing the server to another one.</p></div>
+        </div>
+        <div class="instant-fix">Didn't help? Write to support — we will answer quickly and help you connect.</div>
+    </div>
+
+    <div id="view-issue-internet" class="view">
+        <div class="back-nav" onclick="showView('view-issues')">← Back</div>
+        <div class="instant-fix">Turn <b>Airplane mode</b> on and off for 5 seconds. This will reset network errors.</div>
+        <div class="content-card">
+            <div class="sol-card"><b>Check internet without VPN</b><p>If it doesn't work — the problem is in the network.</p></div>
+            <div class="sol-card"><b>Restart VPN</b> <p>Turn the connection off and on.</p></div>
+            <div class="sol-card"><b>Change server</b><p>Try changing the server to another one.</p></div>
+            <div class="sol-card"><b>Check routing rules</b><p>If you set up "Smart Routing", temporarily disable it. If the internet appears, update the rules list.</p></div>
+        </div>
+        <div class="instant-fix">Didn't help? Write to support — we will answer quickly and help you connect.</div>
+    </div>
+
+    <div id="view-slow-internet" class="view">
+        <div class="back-nav" onclick="showView('view-issues')">← Back</div>
+        <div class="instant-fix">Switch the masking to <b>Apple</b> — this mode is optimized for video and social networks.</div>
+        <div class="content-card">
+            <div class="sol-card"><b>Check speed without VPN</b><p>If the internet is slow on its own, VPN will not speed it up.</p></div>
+            <div class="sol-card"><b>Device load</b><p>On weak TVs and Android boxes, close other apps. VPN requires CPU power for encryption.</p></div>
+            <div class="sol-card"><b>Restart tunnel</b><p>Turn off the VPN, wait 10 seconds and turn it back on by selecting a different masking server.</p></div>
+        </div>
+    </div>
+
+    <div id="view-v2ray-routing" class="view">
+        <div class="back-nav" onclick="showView('view-main')">← Back</div>
+        <div class="content-card">
+            <h3>Setting up smart routing in v2raytun</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">For other clients, this feature works by default.</p>
+            <div class="sol-card"><b>1. Routing settings</b><p>In the v2raytun app, go to the "Settings" tab (gear icon) and select the "Traffic Rules" section.</p></div>
+            <div class="sol-card"><b>2. Preset rules</b><p>In the menu that opens, go to the "Community Rules" subsection.</p></div>
+            <div class="sol-card"><b>3. Profile installation</b><p>Scroll down the list, find the ".RU without VPN" profile and click the "Install" button next to it.</p></div>
+            <div class="sol-card"><b>4. Activation</b><p>Go back to the "Traffic Rules" menu and toggle the top switch "Enable feature".</p></div>
+
+            <div class="info-box">
+                <i>💡 <b>What is this for?</b><br>
+                Enabling this rule tells the application to automatically sort your traffic. Foreign resources (YouTube, Instagram) will go through the VPN, while local websites and banks will work directly. This eliminates the need to constantly turn the VPN on and off.</i>
+            </div>
+        </div>
+    </div>
+
+    <div id="view-share" class="view">
+        <div class="back-nav" onclick="showView('view-main')">← Back to selection</div>
+        
+        <div class="content-card">
+            <h3 style="margin-top: 0;">How to connect other devices</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">
+                If you have the "Standard" plan (up to 3 devices), you can share the link quickly and easily without logging into Telegram again on new devices.
+            </p>
+            
+            <div class="sol-card">
+                <b>1. Open the link</b>
+                <p>On an already connected device, follow your subscription link (a page will open in the browser).</p>
+            </div>
+            
+            <div class="sol-card">
+                <b>2. Show QR code</b>
+                <p>In the upper right corner of the screen, click on the "🔗" button.</p>
+            </div>
+            
+            <div class="sol-card">
+                <b>3. Scanning</b>
+                <p>A QR code will appear on the screen. Scan it directly from the VPN application (Incy, V2Raytun, RabbitHole, etc.) on your second or third device.</p>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <div class="warning-box-header">
+                <i>💡</i> <b>Important:</b> 
+            </div>
+            <p>This QR code contains your unique key. Do not publish it in the public domain.</p>
+        </div>
+
+    </div>
+
+    <div id="view-per-app" class="view">
+        <div class="back-nav" onclick="showView('view-main')">← Back to selection</div>
+        
+        <div class="content-card">
+            <h3 style="margin-top: 0;">Why is this needed?</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">
+                The "Split Tunneling" feature allows you to select specific apps that will work through the VPN. 
+                Others (e.g., banking apps, taxi) will work directly. This saves battery and eliminates the need to constantly toggle the VPN.
+                <p><b>This feature is only available to Android users.</b></p>
+            </p>
+                <div class="diag-grid">
+                    <div class="diag-item" onclick="showView('view-per-incy')"><i><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FAFAFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-box-model-2"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M8 8h8v8h-8l0 -8" /><path d="M4 6a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2l0 -12" /></svg></i> 
+                        <div class="label">Incy</div></div>
+                    <div class="diag-item" onclick="showView('view-per-flclashx')"><i><svg width="24" height="24" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="16.1458" y="47" width="6.66417" height="46.9593" rx="3.33209" transform="rotate(-150 16.1458 47)" fill="#FAFAFA"/><path d="M38.1165 40.751C39.0362 42.3446 38.4902 44.3827 36.8967 45.3027C35.3031 46.2228 33.2652 45.6764 32.345 44.083L25.6887 32.5537L29.5364 25.8896L38.1165 40.751ZM13.4163 4.63477C15.01 3.71464 17.0479 4.26078 17.968 5.85449L24.5334 17.2266L20.6868 23.8906L12.1975 9.18652C11.2775 7.59298 11.8229 5.55504 13.4163 4.63477Z" fill="#FAFAFA"/></svg></i> 
+                        <div class="label">Flclash X</div></div>
+                    <div class="diag-item" onclick="showView('view-per-v2raytun')"><i><svg width="24" height="24" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.6586 13.2268L12.1706 30.7123H12.3749L20.8724 13.2268H27.531L15.1393 37.1004H7.21872L3 13.2268H9.6586Z" fill="#FAFAFA"/><path d="M26.0467 37.1004L26.7558 32.9505L37.0442 25.3268C37.8214 24.7362 38.4865 24.1922 39.0394 23.6948C39.6003 23.1974 40.049 22.7001 40.3855 22.2027C40.722 21.7053 40.9384 21.1613 41.0345 20.5707C41.1467 19.9102 41.0946 19.3428 40.8783 18.8688C40.6619 18.3947 40.3174 18.0334 39.8446 17.7847C39.3719 17.5282 38.803 17.4 38.1379 17.4C37.4568 17.4 36.8319 17.536 36.2629 17.808C35.694 18.0722 35.2213 18.4608 34.8447 18.9737C34.4761 19.4788 34.2317 20.0889 34.1115 20.8039H28.4625C28.743 19.1796 29.364 17.7769 30.3255 16.5957C31.287 15.4144 32.505 14.5052 33.9793 13.8679C35.4537 13.2229 37.1003 12.9004 38.9192 12.9004C40.7781 12.9004 42.3446 13.2035 43.6187 13.8096C44.9007 14.4158 45.8262 15.2629 46.3951 16.3509C46.972 17.4311 47.1363 18.6862 46.8879 20.1161C46.7276 21.0253 46.3791 21.9268 45.8422 22.8205C45.3134 23.7065 44.468 24.6934 43.3062 25.7814C42.1443 26.8616 40.5458 28.1556 38.5105 29.6632L35.1211 32.2977L35.0851 32.4492H45.073L44.2677 37.1004H26.0467Z" fill="#FAFAFA"/></svg></i> 
+                        <div class="label">V2RayTun</div></div>
+                </div>
+        </div>
+    </div>
+
+
+    <div id="view-per-incy" class="view">
+        <div class="back-nav" onclick="showView('view-per-app')">← Back</div>
+        <div class="content-card">
+            <h3><b>Incy</b></h3>
+            <p>Settings → Per-App Proxy → Enable "Enable Per-App Proxy" → Select the "Only through tunnel" mode.</p>
+            <p style="margin-top:8px; font-size:0.8rem; opacity:0.8;">Then find the desired applications in the list (YouTube, Telegram, etc.) and check their boxes.</p>
+        </div>
+        <div class="warning-box">
+            <div class="warning-box-header"><i>💡</i> <b>Important:</b></div>
+            <p>After changing split tunneling settings, it is recommended to turn the connection off and back on in the app.</p>
+        </div>
+    </div>
+
+    <div id="view-per-v2raytun" class="view">
+        <div class="back-nav" onclick="showView('view-per-app')">← Back</div>
+        <div class="content-card">
+            <h3>V2RayTun</h3>
+            <p>Settings → Routing → Routing of selected apps → Enable "Routing of selected apps".</p>
+            <p style="margin-top:8px; font-size:0.8rem; opacity:0.8;">Select apps from the list or via search.</p>
+        </div>
+        <div class="warning-box">
+            <div class="warning-box-header"><i>💡</i> <b>Important:</b></div>
+            <p>After changing split tunneling settings, it is recommended to turn the connection off and back on in the app.</p>
+        </div>
+    </div>
+
+    <div id="view-per-flclashx" class="view">
+        <div class="back-nav" onclick="showView('view-per-app')">← Back</div>
+        <div class="content-card">
+            <h3>FlClash X</h3>
+            <p>Settings → Access Control → Enable "App Access Control".</p>
+            <p style="margin-top:8px; font-size:0.8rem; opacity:0.8;">Select the necessary programs in the list that appears.</p>
+        </div>
+        <div class="warning-box">
+            <div class="warning-box-header"><i>💡</i> <b>Important:</b></div>
+            <p>After changing split tunneling settings, it is recommended to turn the connection off and back on in the app.</p>
+        </div>
+    </div>
+
+
+    <div id="view-tv" class="view">
+        <div class="back-nav" onclick="showView('view-main')">← Back</div>
+
+        <div class="instant-fix">
+          <div class="sol-card"><b>Step 1. Installation</b><p>Install Happ on your smartphone and on Android TV.</p>
+            <div class="app-links">
+                     <a href="https://apps.apple.com/us/app/happ-proxy-utility/id6504287215" target="_blank" class="app-btn">
+                         <svg viewBox="0 0 24 24"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.943 3.96.988 1.695.046 2.682-1.42 3.685-2.919 1.154-1.714 1.63-3.383 1.66-3.469-.036-.015-3.238-1.246-3.264-4.97-.02-3.09 2.518-4.57 2.625-4.636-1.455-2.13-3.69-2.42-4.524-2.47-1.748-.12-3.526 1.066-4.468 1.066M14.78 4.092c.783-.951 1.309-2.276 1.164-3.592-1.127.045-2.515.752-3.322 1.713-.728.85-1.328 2.205-1.164 3.491 1.26.098 2.527-.66 3.322-1.612z"></path></svg>
+                         App Store
+                     </a>
+                     <a href="https://play.google.com/store/apps/details?id=com.happproxy" target="_blank" class="app-btn">
+                         <svg viewBox="0 0 24 24"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4483-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0004.5511-.4482.9997-.9993.9997zm-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993s-.4482.9997-.9993.9997zm11.4045-6.02l1.9973-3.4592c.1158-.201.046-.4573-.1558-.5732-.2006-.1158-.4569-.0461-.5731.1554l-2.0298 3.5158c-1.464-.6728-3.2081-1.0468-5.1201-1.0468s-3.656.374-5.1201 1.0468l-2.0298-3.5158c-.1158-.2015-.3721-.2716-.5731-.1554-.2018.1159-.2716.3722-.1558.5732l1.9973 3.4592c-4.1487 2.2726-6.966 6.5501-7.1352 11.536h23.9168c-.1688-4.9859-2.9861-9.2634-7.1352-11.536z"></path></svg>
+                         Google Play
+                     </a>
+             </div>
+          </div>
+          <div class="sol-card"><b>Step 2. Open the app on TV</b><p>Open the Happ app on your TV. You will see a screen with a QR code saying "Scan via Happ on your phone".</p></div>
+          <div class="sol-card"><b>Step 3. Link</b><p>Copy the subscription link from the bot in Telegram, open the Happ app on your smartphone and click the bottom left button "From clipboard".</p>
+            <button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Show screenshot</button>
+            <div class="screenshot-content" style="display: none;"><img src="img/bot_screen1.jpg"></div></div>
+          <div class="sol-card"><b>Step 4. Sending</b>
+            <p>On your smartphone, press the bottom right button "QR-Code" and point it at the TV screen.</p>
+            <p> Select the necessary subscription and click "Send". </p>
+           <button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Show screenshot</button>
+           <div class="screenshot-content" style="display: none;"><img src="img/happ_screen1.jpg"></div></div>
+           <div class="success-finish">
+               🎉 Done! Subscription sent to Android TV!
+           </div>
+        </div>
+        
+        <div class="content-card">
+            <h3>📺 Transferring a link to Android TV using LocalSend</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Use this method so you don't have to type a long link with the remote.</p>
+
+            <div class="sol-card"><b>Step 0. Copy the link</b>
+                <p>In the bot, send /start -> "Subscription". Find the "🔗 Connection link" block and click it to copy.</p>
+                <button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Show screenshot</button>
+                <div class="screenshot-content" style="display: none;"><img src="img/bot_screen1.jpg"></div>
+            </div>
+
+            <div class="sol-card"><b>Step 1. Install LocalSend</b><p>Install LocalSend on the TV and on the smartphone from which you will transfer the link. Download: <a href="https://localsend.org/download" target="_blank" class="cyber-link">localsend.org</a></p></div>
+            <div class="sol-card"><b>Step 2. Same network</b><p>Both devices must be on the same Wi-Fi network (you can share a hotspot from your phone).</p></div>
+            <div class="sol-card"><b>Step 3. Paste the link</b>
+                <p>In the LocalSend app on your smartphone, click the "Paste" button.</p>
+                <button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Show screenshot</button>
+                <div class="screenshot-content" style="display: none;"><img src="img/localsend_screen1.jpg"></div>
+            </div>
+            <div class="sol-card"><b>Step 4. Send</b><p>Select your TV from the list of devices to send the link to.</p></div>
+            <div class="sol-card"><b>Step 5. Receive file</b><p>On the TV, accept the file and copy the received link text.</p></div>
+            <div class="sol-card"><b>Step 6. Activation</b><p>Open the link in the TV browser to go to the instructions OR paste it directly into V2Raytun/FLClashX, as described below.</p></div>
+        </div>
+
+        <div class="content-card">
+            <h3>If V2Raytun is installed on the TV</h3>
+            <div class="sol-card"><b>1. Add</b><p>Click "+" in the upper right corner of the screen.</p></div>
+            <div class="sol-card"><b>2. Import</b><p>Select "Import from clipboard". Done!</p></div>
+        </div>
+
+        <div class="content-card">
+            <h3>If FLClashX is installed on the TV</h3>
+
+            <div class="step">
+                <div class="sol-card">
+                  <b>1. Add</b> <p>In the app, go to profiles and click <b>"+ Add profile".</b></p>
+                    <button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Show screenshot</button>
+                    <div class="screenshot-content" style="display: none;">
+                        <img src="./index_start_files/flclashx_screen1.jpg" alt="FLClashX Add profile">
+                    </div>
+                  </div>
+                <div class="sol-card">
+                    <b>2. Import</b><p>Paste your subscription link from the clipboard into the URL field and click <b>"Send".</b></p></div>
+                </div>
+        </div>
+    </div>
+
+    <div id="view-faq" class="view">
+        <div class="back-nav" onclick="showView('view-main')">← Back to selection</div>
+        <div class="card">
+            <h3 style="margin-bottom: 20px;">Frequently Asked Questions</h3>
+
+            <details class="faq-item">
+                <summary>Which server should I choose?</summary>
+                <div class="faq-answer">
+                    Apple/Google/Microsoft are just types of masking. They all lead to the same fast server. If one mode is slow, simply choose another.
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary class="faq-question">What does "Rule / Global / Direct" mean in the FLClashX app?</summary>
+                <div class="faq-answer">
+                    <p>These are routing modes. They tell your VPN application exactly how to sort your internet traffic.</p>
+                    <ul>
+                        <li><strong>Rule / Routing</strong> — this is the "smart" mode used by default. The application itself separates the traffic according to the rules built into it: local sites (banks, government services, marketplaces) open directly through your provider, and social networks and foreign services go through the VPN. This is the most convenient mode for every day, so that nothing breaks.</li>
+                        <li><strong>Global / Proxy</strong> — full proxying mode. Absolutely all internet traffic on your device is forcefully sent through the VPN server abroad. Use it if you need to hide your real IP address for absolutely all sites without exception. <strong>Important:</strong> in this mode, many local banking applications may not work. <br><span style="color: #ef8e76; font-style: italic;">Note</span>: after turning on this mode, go to the "Proxy" tab and make sure that in the Global group that appears, the CyberCrab VPN (Selector) group is selected, and not DIRECT.</li>
+                        <li><strong>Direct</strong> — full VPN bypass mode. All traffic goes directly, bypassing the secure tunnel. In fact, the VPN stops masking your IP address and accessing resources, even if the connection itself is active. Typically, this mode is only needed by developers for network testing.</li>
+                    </ul>
+                </div>
+            </details>  
+        </div>
+    </div>
+
+
+    <div class="card card-support">
+        <div class="support-title">Support Service</div>
+        <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center; margin-bottom: 20px;">If Telegram is not working for you and you cannot buy a subscription through the bot, write to us — we will provide temporary access.</p>
+
+        <div class="support-links-grid">
+            <a href="https://t.me/rchrd_cc" target="_blank" class="support-item">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="support-icon"><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4"></path></svg>
                 Telegram
             </a>
-            
-            <a href="https://wa.me/+995599009666?text=Hello!%20I%20need%20temporary%20access%20to%20set%20up%20my%20connection." target="_blank" rel="noopener noreferrer" class="support-link-item">
+
+            <a href="https://wa.me/+995599009666?text=Hello!%20I%20need%20temporary%20access%20to%20set%20up%20the%20connection." target="_blank" class="support-item">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="support-icon"><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"></path><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"></path></svg>
                 WhatsApp
             </a>
-            
-            <a href="mailto:support@cybercrab.cc?subject=Temporary%20key%20request&body=Hello!%20I%20need%20temporary%20access%20to%20set%20up%20my%20connection." class="support-link-item">
+
+            <a href="mailto:support@cybercrab.cc?subject=Temporary%20key%20request&amp;body=Hello!%20I%20need%20temporary%20access%20to%20set%20up%20the%20connection." class="support-item">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="support-icon"><rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect><polyline points="3 7 12 13 21 7"></polyline></svg>
                 support@cybercrab.cc
             </a>
         </div>
-
     </div>
 
-    <div class="card faq-card">
-        <h2 class="faq-title">❓ F.A.Q.</h2>
-        
-        <details class="faq-item">
-            <summary class="faq-question">Is there a trial period for your service?</summary>
-            <div class="faq-answer">
-                <p>Yes, absolutely! We offer a free trial period so you can test the speed and stability of the connection before purchasing.</p>
-                <p>The trial subscription is valid for <b>3 days</b> and includes <b>2 GB of traffic</b> with the possibility of simultaneous connection on <b>1 device</b>. This time and data volume are more than enough for comfortable browsing and testing.</p>
-            </div>
-        </details>
-
-        <details class="faq-item">
-            <summary class="faq-question">Why should I use the Telegram bot if I can buy access directly through support?</summary>
-            <div class="faq-answer">
-                <p>Transit keys provided by support are only a temporary measure for initial setup. Full access via the Telegram bot is necessary for your own convenience.</p>
-                <p><b>First,</b> the bot serves as your full-fledged personal dashboard. It gives you easy access to manage your subscription: you can always check your remaining traffic, view your expiration date, and renew access in a few clicks.</p>
-                <p><b>Second,</b> it automates the issuance process. Users can pay for a plan and receive a personal key instantly, without waiting for an operator's response.</p>
-                <p><span style="color: #ef8e76; font-style: italic;">Please note:</span> A special MTProto link will be added to this site soon. This is a built-in Telegram protocol: you just click on it, and your messenger will instantly connect to our servers for a smooth transition to the bot.</p>
-            </div>
-        </details>
-
-        <details class="faq-item">
-            <summary class="faq-question">What do "Rule / Global / Direct" mean in FLClashX?</summary>
-            <div class="faq-answer">
-                <p>These are routing modes. They instruct your <span style="white-space: nowrap;">V&#8203P&#8203N</span> app on how exactly it should sort your internet traffic.</p>
-                <ul>
-                    <li><strong>Rule / Routing</strong> — the "smart" mode, which is <span style="color: #31bae3; font-style: italic;">used by default</span>. The app divides traffic based on built-in rules: local websites (banks, government services, marketplaces) open directly through your provider, while social networks and foreign services go through the <span style="white-space: nowrap;">V&#8203P&#8203N</span>. This is the most convenient mode for everyday use to avoid breaking local services.</li>
-                    <li><strong>Global / Proxy</strong> — full proxy mode. Absolutely all internet traffic on your device is forced through the <span style="white-space: nowrap;">V&#8203P&#8203N</span> server abroad. Use this if you need to hide your real IP address for all websites without exception. <strong>Important:</strong> many local banking apps may not work in this mode. <br><span style="color: #ef8e76; font-style: italic;">Note</span>: after enabling this mode, go to the "Proxy" tab and ensure that the CyberCrab <span style="white-space: nowrap;">V&#8203P&#8203N</span> (Selector) group is selected in the Global group, not DIRECT.</li>
-                    <li><strong>Direct</strong> — full bypass mode. All traffic goes directly, bypassing the secure tunnel. Essentially, the <span style="white-space: nowrap;">V&#8203P&#8203N</span> stops masking your IP address and providing access to resources, even if the connection itself is active. This mode is usually only needed by developers for network testing.</li>
-                </ul>
-            </div>
-        </details>        
-
-        <details class="faq-item">
-            <summary class="faq-question">Why are there multiple servers in the list (Apple, Google, Microsoft)? <br>Which one should I choose?</summary>
-            <div class="faq-answer">
-                <p>All these connections lead to the same super-fast server. The only difference is the traffic routing type.</p>
-                <p>Modern network analysis systems may restrict non-standard traffic. To ensure stability, our app masks your internet traffic to look like visits to popular resources:</p>
-                <ul>
-                    <li><b>Apple</b> — routing disguised as Apple servers.</li>
-                    <li><b>Google</b> — simulating data downloads from Google.</li>
-                    <li><b>Microsoft</b> — masking as standard Windows updates.</li>
-                </ul>
-                <p><b>What to do:</b> Connect to any of them! If your ISP temporarily restricts one of the routes, you simply choose another one from the list — and your network will work stably again. This is your personal guarantee of uninterrupted access.</p>
-            </div>
-        </details>
-    </div>
-
-
-    <div class="card toc-card">
-        <h2>📑 Table of Contents</h2>
-        <ul class="toc-list">
-            <li><a href="#step-by-step-guide" class='toc-link'>📖 Step-by-step guide for setting up the trial subscription</a></li>
-            <li><a href="#android-tv" class="toc-link">📺 Transferring the link to Android TV (LocalSend)</a></li>
-            <li><a href="#v2raytun" class="toc-link">⚙️ Setting up smart routing for v2raytun</a></li>
-        </ul>
-    </div>
-
-    <div class="card" id="step-by-step-guide">
-        <h2>📖 Step-by-step Setup Guide</h2>
-        <h3>Stage 1: Temporary Connection (If you have no access to Telegram)</h3>
-
-        <div class="step">
-            <div class="step-num">1</div>
-            <div class="step-content">
-                <b>Request a temporary link.</b> If you currently do not have access to Telegram, contact our support team using any convenient method. You will receive a link for a one-time connection. Copy it. <i>Note: the link is valid for exactly 1 hour.</i>
-            </div>
-        </div>
-
-        <div class="step">
-            <div class="step-num">2</div>
-            <div class="step-content">
-                <b>Download the Incy app.</b> Download the official app for your device using the links below. It's perfect for quickly gaining temporary access.
-                                <div class="app-links">
-                    <a href="https://apps.apple.com/us/app/incy/id6756943388" target="_blank" class="app-btn">
-                        <svg viewBox="0 0 24 24"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.943 3.96.988 1.695.046 2.682-1.42 3.685-2.919 1.154-1.714 1.63-3.383 1.66-3.469-.036-.015-3.238-1.246-3.264-4.97-.02-3.09 2.518-4.57 2.625-4.636-1.455-2.13-3.69-2.42-4.524-2.47-1.748-.12-3.526 1.066-4.468 1.066M14.78 4.092c.783-.951 1.309-2.276 1.164-3.592-1.127.045-2.515.752-3.322 1.713-.728.85-1.328 2.205-1.164 3.491 1.26.098 2.527-.66 3.322-1.612z"/></svg>
-                        App Store
-                    </a>
-                    <a href="https://play.google.com/store/apps/details?id=llc.itdev.incy" target="_blank" class="app-btn">
-                        <svg viewBox="0 0 24 24"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4483-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0004.5511-.4482.9997-.9993.9997zm-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993s-.4482.9997-.9993.9997zm11.4045-6.02l1.9973-3.4592c.1158-.201.046-.4573-.1558-.5732-.2006-.1158-.4569-.0461-.5731.1554l-2.0298 3.5158c-1.464-.6728-3.2081-1.0468-5.1201-1.0468s-3.656.374-5.1201 1.0468l-2.0298-3.5158c-.1158-.2015-.3721-.2716-.5731-.1554-.2018.1159-.2716.3722-.1558.5732l1.9973 3.4592c-4.1487 2.2726-6.966 6.5501-7.1352 11.536h23.9168c-.1688-4.9859-2.9861-9.2634-7.1352-11.536z"/></svg>
-                        Google Play
-                    </a>
-                    <a href="https://github.com/INCY-DEV/incy-platforms" target="_blank" class="app-btn">
-                        <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
-                        GitHub (Other OS)
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="step">
-            <div class="step-num">3</div>
-            <div class="step-content">
-                <b>Activate the temporary <span style="white-space: nowrap;">V&#8203P&#8203N</span>.</b> Open the installed Incy app and simply click the <b>"Paste"</b> button. Now you have network access to open Telegram and purchase a permanent plan.
-                <br><button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Show screenshot</button>
-                <div class="screenshot-content" style="display: none;">
-                    <img src="img/incy_screen1.jpg" alt="Incy Import">
-                </div>
-            </div>
-        </div>
-
-        <div class="step">
-            <div class="step-num">4</div>
-            <div class="step-content">
-                <b>Prepare the main client.</b> To avoid confusion later, use <b>Incy</b> only to get temporary access. For permanent use, we recommend the following clients: <b>RabbitHole</b> for iPhone, <b>Koala Clash</b> for Windows and Linux, and <b>FLClashX</b> for other systems. <br><br><i>After successfully setting up your permanent subscription, you can delete the temporary Incy app to avoid confusion. However, you can keep it as your main <span style="white-space: nowrap;">V&#8203P&#8203N</span> client, as it is available on all platforms. In this case, after adding a new subscription via the bot, just don't forget to delete the old temporary profile.</i>
-            </div>
-        </div>
-
-        <br>
-        <h3>Stage 2: Trial Period Registration and Setup</h3>
-
-        <div class="step">
-            <div class="step-num">5</div>
-            <div class="step-content">
-                <b>Launch the Telegram bot.</b> Click the green <b>"Open Telegram Bot"</b> button (above on this page), and then click <b>"START"</b> right in the opened chat. You can track all further information (remaining traffic, number of devices, renewal) in this bot.
-            </div>
-        </div>
-
-        <div class="step">
-            <div class="step-num">6</div>
-            <div class="step-content">
-                <b>Complete registration.</b> Choose your preferred interface language. Carefully read the service rules and click <b>"Accept rules"</b>. If you have a referral or promo code, enter it; otherwise, click <b>"Skip"</b>.
-            </div>
-        </div>
-
-        <div class="step">
-            <div class="step-num">7</div>
-            <div class="step-content">
-                <b>Get free access.</b> In the bot menu, click <b>"🚀 Connect for free 🚀"</b>, and then select <b>"🔗 Connect"</b>.
-            </div>
-        </div>
-
-        <div class="step">
-            <div class="step-num">8</div>
-            <div class="step-content">
-                <b>Open your personal dashboard.</b> A mini-app with your subscription page will appear. At the top of the screen, you can always check your current connection status, expiration date, and remaining traffic.
-                <br><button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Show screenshot</button>
-                <div class="screenshot-content" style="display: none;">
-                    <img src="img/subpage_screen1.jpg" alt="Personal dashboard">
-                </div>
-            </div>
-        </div>
-
-        <div class="step">
-            <div class="step-num">9</div>
-            <div class="step-content">
-                <b>Install the app.</b> On the subscription page, click on the <b>"App Installation"</b> block to expand it. In the same block, click the download button and install the client suitable for your system.
-                <br><button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Show screenshot</button>
-                <div class="screenshot-content" style="display: none;">
-                    <img src="img/subpage_screen2.jpg" alt="App Installation">
-                </div>            
-            </div>
-        </div>
-
-        <div class="step">
-            <div class="step-num">10</div>
-            <div class="step-content">
-                <b>Allow <span style="white-space: nowrap;">V&#8203P&#8203N</span> profile addition (For iPhone users).</b> Open the downloaded app. Click the <span style="white-space: nowrap;">V&#8203P&#8203N</span> connect button, accept the system agreements, and enter your device passcode (or use Face ID) to create the <span style="white-space: nowrap;">V&#8203P&#8203N</span> profile.
-            </div>
-        </div>
-
-        <div class="step">
-            <div class="step-num">11</div>
-            <div class="step-content">
-                <b>Add the subscription.</b> Return to the subscription page in the Telegram mini-app and expand the <b>"Add Subscription"</b> block. Click the <b>"+ Add Subscription"</b> button. The previously installed app will automatically open, and the subscription will be added.
-                <br><button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Show screenshot</button>
-                <div class="screenshot-content" style="display: none;">
-                    <img src="img/subpage_screen3.jpg" alt="Add Subscription">
-                </div>
-            </div>
-        </div>
-
-        <div class="step">
-            <div class="step-num">12</div>
-            <div class="step-content">
-                <b>Set up routing (Only if you kept Incy).</b> For a seamless experience, we recommend returning to the subscription page in the bot, clicking on the <b>"Add routing profile"</b> block, and clicking the corresponding button below it. This will add smart rules allowing local websites and banking apps to work directly without needing to disconnect the <span style="white-space: nowrap;">V&#8203P&#8203N</span>.
-                <br><button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Show screenshot</button>
-                <div class="screenshot-content" style="display: none;">
-                    <img src="img/subpage_screen4.jpg" alt="Routing Setup">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="card" id="android-tv">
-        <h2>📺 Transferring the link to Android TV (LocalSend)</h2>
-        <p style="color: var(--text-muted); margin-bottom: 20px;">Use this method so you don't have to type a long link with your remote.</p>
-        
-        <div class="step">
-            <div class="step-num">0</div>
-            <div class="step-content">
-                <b>Copy the subscription link from the bot.</b> Open our Telegram bot and send the <b>/start</b> command. Select the <b>"Subscription"</b> section in the menu. In the message that appears, find the <i>"🔗 Connection link"</i> and simply click on the link below it to copy it to your clipboard..
-                <br><button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Show screenshot</button>
-                <div class="screenshot-content" style="display: none;">
-                    <img src="img/bot_screen1.jpg" alt="Subscription link">
-                </div>
-            </div>
-        </div>
-
-        <div class="step">
-            <div class="step-num">1</div>
-            <div class="step-content">
-                <b>Install LocalSend on both devices.</b><br>
-                If you have an Android TV, install the LocalSend app on your TV and on the smartphone (or computer) from which you will send the subscription link. <br>
-                Download: <a href="https://localsend.org/download" target="_blank" class="cyber-link">localsend.org/download</a>
-            </div>
-        </div>
-
-        <div class="step">
-            <div class="step-num">2</div>
-            <div class="step-content">
-                <b>Connect to the same network.</b><br>
-                Both devices must be on the same Wi-Fi network. You can create a Wi-Fi hotspot from your smartphone and connect your Android TV to this network.
-            </div>
-        </div>
-
-        <div class="step">
-            <div class="step-num">3</div>
-            <div class="step-content">
-                <b>Paste the link.</b><br>
-                Open the LocalSend app on your smartphone and click the <b>"Paste"</b> button.
-                <br><button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Show screenshot</button>
-                <div class="screenshot-content" style="display: none;">
-                    <img src="img/localsend_screen1.jpg" alt="LocalSend Paste">
-                </div>
-            </div>
-        </div>
-
-        <div class="step">
-            <div class="step-num">4</div>
-            <div class="step-content">
-                <b>Send to TV.</b><br>
-                Select the device (your Android TV) to which you want to send the link.
-                <br><button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Show screenshot</button>
-                <div class="screenshot-content" style="display: none;">
-                    <img src="img/localsend_screen2.jpg" alt="LocalSend Select Device">
-                </div>
-            </div>
-        </div>
-
-        <div class="step">
-            <div class="step-num">5</div>
-            <div class="step-content">
-                <b>Receive the file.</b><br>
-                Accept the incoming file on your TV and copy the received text.
-            </div>
-        </div>
-
-        <div class="step">
-            <div class="step-num">6</div>
-            <div class="step-content">
-                <b>Activate the subscription.</b><br>
-                Open the copied link in your TV's browser and proceed to <br><a href="#step-by-step-guide" class='cyber-link'>Stage 2, step 9 of the 📖 Step-by-step Setup Guide</a>, <b>OR</b> simply open the installed <span style="white-space: nowrap;">V&#8203P&#8203N</span> app (V2Raytun or FLClashX) and paste the link there, as described below.
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>If V2Raytun is installed on your TV</h2>
-            
-            <div class="step">
-                <div class="step-num">1</div>
-                <div class="step-content">
-                    Click <b>"+"</b> in the upper right corner of the screen.
-                    <br><button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Show screenshot</button>
-                    <div class="screenshot-content" style="display: none;">
-                        <img src="img/v2raytun_screen1.jpg" alt="V2Raytun Add">
-                    </div>
-                </div>
-            </div>
-
-            <div class="step">
-                <div class="step-num">2</div>
-                <div class="step-content">
-                    Select <b>"Import from clipboard"</b>. Done!
-                    <br><button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Show screenshot</button>
-                    <div class="screenshot-content" style="display: none;">
-                        <img src="img/v2raytun_screen2.jpg" alt="V2Raytun Import">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>If FLClashX is installed on your TV</h2>
-            
-            <div class="step">
-                <div class="step-num">1</div>
-                <div class="step-content">
-                    In the app, go to profiles and click <b>"+ Add profile"</b>.
-                    <br><button class="toggle-btn" onclick="toggleScreenshot(this)">👁️ Show screenshot</button>
-                    <div class="screenshot-content" style="display: none;">
-                        <img src="img/flclashx_screen1.jpg" alt="FLClashX Add Profile">
-                    </div>
-                </div>
-            </div>
-
-            <div class="step">
-                <div class="step-num">2</div>
-                <div class="step-content">
-                    Paste your subscription link from the clipboard into the URL field and click <b>"Submit"</b>.
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="card" id="v2raytun">
-        <h2>Optional: Setting up smart routing for v2raytun</h2>
-        <p style="color: var(--text-muted); margin-bottom: 20px;">For other clients, this feature works by default</p>
-
-        <div class="step">
-            <div class="step-num">1</div>
-            <div class="step-content">
-                <b>Open routing settings.</b> In the v2raytun app, go to the <b>"Settings"</b> tab (gear icon) and select the <b>"Traffic Rules"</b> section.
-            </div>
-        </div>
-
-        <div class="step">
-            <div class="step-num">2</div>
-            <div class="step-content">
-                <b>Find pre-made rules.</b> In the opened menu, go to the <b>"Community Rules"</b> subsection. 
-            </div>
-        </div>
-
-        <div class="step">
-            <div class="step-num">3</div>
-            <div class="step-content">
-                <b>Install the routing profile.</b> Scroll down the list, find the profile named <b>".RU without <span style="white-space: nowrap;">V&#8203P&#8203N</span>"</b> (or similar local bypass rule), and click the <b>"Install"</b> button next to it.
-            </div>
-        </div>
-
-        <div class="step">
-            <div class="step-num">4</div>
-            <div class="step-content">
-                <b>Activate the feature.</b> Go back one step (to the main "Traffic Rules" menu) and toggle the top switch <b>"Enable feature"</b>.
-            </div>
-        </div>
-
-        <div style="background-color: rgba(56, 189, 248, 0.1); border-left: 4px solid #38bdf8; padding: 15px; border-radius: 0 8px 8px 0; margin-top: 15px;">
-            <i>💡 <b>Why is this needed?</b><br>
-            Enabling this rule tells the app to automatically sort your internet traffic. Foreign resources and social networks will go through the secure <span style="white-space: nowrap;">V&#8203P&#8203N</span> tunnel, while local websites, marketplaces, and banking apps will work directly. This saves you from having to constantly turn the <span style="white-space: nowrap;">V&#8203P&#8203N</span> on and off — everything will work stably and seamlessly.</i>
-        </div>
-    </div>
-
-
-    <div style="text-align: center; margin-top: 35px; margin-bottom: 15px; font-size: 0.9em;">
-        <a href="terms_en.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px; transition: color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'">Terms of Service</a>
+    <footer class="footer-links">
+        <a href="terms_en.html">Terms of Service</a>
         <span style="color: var(--border);">|</span>
-        <a href="policy_en.html" style="color: var(--text-muted); text-decoration: none; margin: 0 10px; transition: color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'">Privacy Policy</a>
-    </div>
+        <a href="policy_en.html">Privacy Policy</a>
+        <div class="copyright">© 2026 CyberCrab V&ZeroWidthSpace;P&ZeroWidthSpace;N</div>
+    </footer>
 
 </div>
 
 <script>
+    function showView(viewId) {
+        document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
+        document.getElementById(viewId).style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     function toggleScreenshot(btn) {
-        var content = btn.nextElementSibling;
-        if (content.style.display === "none") {
-            content.style.display = "block";
-            btn.innerText = "🙈 Hide screenshot";
-        } else {
-            content.style.display = "none";
-            btn.innerText = "👁️ Show screenshot";
+        const content = btn.nextElementSibling;
+        content.style.display = (content.style.display === "none") ? "block" : "none";
+        btn.innerText = (content.style.display === "none") ? "👁️ Show screenshot" : "🙈 Hide screenshot";
+    }
+
+    async function requestTrialVPN() {
+        const btn = document.getElementById('trial-btn');
+        const statusDiv = document.getElementById('vpn-status');
+        
+        // 1. Блокируем кнопку от двойных кликов
+        btn.disabled = true;
+        btn.innerHTML = "⏳ Creating profile...";
+        
+        statusDiv.className = "status-loading";
+        statusDiv.innerHTML = "Connecting to server...";
+
+        try {
+            // 2. Отправляем запрос
+            const response = await fetch('https://bridge.cybercrab.cc:8443/generate-trial', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            if (!response.ok) {
+                throw new Error(`Server error: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            // 3. Обрабатываем успешный ответ
+            if (data.status === 'success' && data.link) {
+                btn.innerHTML = "✅ Connecting...";
+                
+                // Формируем ссылку для Incy
+                const incyLink = 'incy://import/' + encodeURIComponent(data.link);
+                
+                statusDiv.className = "status-success";
+                statusDiv.innerHTML = "Opening app for import...<br>";
+                statusDiv.innerHTML += `<a href="${incyLink}" class="fallback-btn">👉 Click here if nothing happened</a>`;
+                
+                // 4. DEEP LINK МАГИЯ (для Incy)
+                setTimeout(() => {
+                    window.location.href = incyLink;
+                }, 800);
+            } else {
+                throw new Error("Invalid response format from server");
+            }
+
+        } catch (error) {
+            console.error("Error getting VPN:", error);
+            btn.disabled = false;
+            btn.innerHTML = "🔄 Try again";
+            
+            statusDiv.className = "status-error";
+            statusDiv.innerHTML = "Connection error. Try again later.";
         }
     }
+
 </script>
 
 </body>

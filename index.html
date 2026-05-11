@@ -64,6 +64,7 @@
         .stepper-card {
             background: var(--card-bg); padding-left: 8px; padding-bottom: 20px; padding-right: 20px; padding-top: 20px; border-radius: 18px;
             margin-bottom: 25px; border: 1px solid var(--border);
+            border-top: 4px solid #108eb9;
         }
         .stepper-card h3 { margin: 0 0 25px 0; text-align: center; font-size: 1.2rem; }
         
@@ -112,20 +113,21 @@
         }
         
         .btn-bot { 
-            background: var(--success); 
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2); 
+            background: linear-gradient(135deg, var(--accent) 0%, #02c7a9 100%); 
+            box-shadow: 0 4px 15px rgba(16, 185, 165, 0.2); 
         }
         .btn-bot:hover { 
-            transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4); background: #059669; 
+            background: linear-gradient(135deg,  #02c7a9 100%, #0284c7 100%);
+            transform: translateY(-2px); box-shadow: 0 6px 20px rgba(9, 239, 216, 0.5);
         }
 
         .btn-trial {
-            background: linear-gradient(135deg, var(--accent) 0%, #0ea5e9 100%);
-            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.25);
+            background: linear-gradient(135deg, var(--accent) 0%, #02c7a9 100%); 
+            box-shadow: 0 4px 15px rgba(16, 185, 165, 0.2); 
         }
         .btn-trial:hover {
-            background: linear-gradient(135deg, var(--accent) 0%, #0284c7 100%);
-            transform: translateY(-2px); box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
+            background: linear-gradient(135deg,  #02c7a9 100%, #0284c7 100%);
+            transform: translateY(-2px); box-shadow: 0 6px 20px rgba(9, 239, 216, 0.5);
         }
         .btn-trial:disabled {
             background: var(--border); color: var(--text-muted) !important;
@@ -199,6 +201,30 @@
         .screenshot-content img { width: 100%; border-radius: 8px; margin-top: 10px; }
         .cyber-link { color: var(--accent); text-decoration: none; font-weight: bold; border-bottom: 1px dashed; }
 
+        /* ================= Блок предупреждений / советов ================= */
+        .warning-box {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px dashed var(--warning);
+            background: rgba(245, 158, 11, 0.03);
+        }
+
+        .warning-box p {
+            margin: 6px 0 0;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+        .warning-box-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--warning);
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        
         /* ================= FAQ ================= */
         .faq-item { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; overflow: hidden; }
         .faq-item summary {
@@ -227,6 +253,13 @@
         .footer-links a { color: var(--text-muted); text-decoration: none; margin: 0 10px; transition: 0.2s; }
         .footer-links a:hover { color: var(--accent); }
         .copyright { margin-top: 10px; color: var(--text-muted); opacity: 0.6; }
+
+        /* Сброс глобальных стилей таймлайна для жирного текста внутри предупреждений */
+        .warning-box-header b {
+            display: inline !important;
+            color: inherit !important;
+            margin-bottom: 0 !important;
+        }
 
         /* ================= Адаптивность (Медиа-запросы) ================= */
         @media (max-width: 600px) {
@@ -269,11 +302,11 @@
                     <div class="timeline-icon">1</div>
                     <div class="timeline-content">
                         <b>Установите приложение</b>
-                        <p>Для начала работы временно скачайте бесплатное приложение Incy на свое устройство:</p>
+                        <p>Для начала работы временно скачайте бесплатное приложение <b>Incy</b> на свое устройство:</p>
                         <div class="app-links">
-                            <a href="https://apps.apple.com/us/app/incy/id6756943388" target="_blank" class="app-btn">App Store</a>
-                            <a href="https://play.google.com/store/apps/details?id=llc.itdev.incy" target="_blank" class="app-btn">Google Play</a>
-                            <a href="https://github.com/INCY-DEV/incy-platforms" target="_blank" class="app-btn">GitHub</a>
+                            <a href="https://apps.apple.com/us/app/incy/id6756943388" target="_blank" class="app-btn"><svg viewBox="0 0 24 24"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.943 3.96.988 1.695.046 2.682-1.42 3.685-2.919 1.154-1.714 1.63-3.383 1.66-3.469-.036-.015-3.238-1.246-3.264-4.97-.02-3.09 2.518-4.57 2.625-4.636-1.455-2.13-3.69-2.42-4.524-2.47-1.748-.12-3.526 1.066-4.468 1.066M14.78 4.092c.783-.951 1.309-2.276 1.164-3.592-1.127.045-2.515.752-3.322 1.713-.728.85-1.328 2.205-1.164 3.491 1.26.098 2.527-.66 3.322-1.612z"></path></svg> App Store</a>
+                            <a href="https://play.google.com/store/apps/details?id=llc.itdev.incy" target="_blank" class="app-btn"><svg viewBox="0 0 24 24"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4483-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0004.5511-.4482.9997-.9993.9997zm-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993s-.4482.9997-.9993.9997zm11.4045-6.02l1.9973-3.4592c.1158-.201.046-.4573-.1558-.5732-.2006-.1158-.4569-.0461-.5731.1554l-2.0298 3.5158c-1.464-.6728-3.2081-1.0468-5.1201-1.0468s-3.656.374-5.1201 1.0468l-2.0298-3.5158c-.1158-.2015-.3721-.2716-.5731-.1554-.2018.1159-.2716.3722-.1558.5732l1.9973 3.4592c-4.1487 2.2726-6.966 6.5501-7.1352 11.536h23.9168c-.1688-4.9859-2.9861-9.2634-7.1352-11.536z"></path></svg> Google Play</a>
+                            <a href="https://github.com/INCY-DEV/incy-platforms" target="_blank" class="app-btn"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg> GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -282,11 +315,12 @@
                     <div class="timeline-icon">2</div>
                     <div class="timeline-content">
                         <b>Получите временную связь</b>
-                        <p>Если Telegram не работает, нажмите синюю кнопку ниже. Она даст доступ к сети на 1 час, чтобы вы могли зайти в бота.</p>
+                        <p>Если Telegram не работает, нажмите кнопку ниже. У вас появится доступ к сети на 1 час, чтобы вы могли зайти в бота. По нажатию кнопки откроется приложение <b>Incy</b> и ссылка добавится автоматически.</p>
                         
                         <div class="vpn-trial-wrapper">
                             <button id="trial-btn" class="btn-main btn-trial" onclick="requestTrialVPN()">
-                                ⏱️ V&ZeroWidthSpace;Р&ZeroWidthSpace;N на 1 час (без Telegram)
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-clock-hour-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 12l3 2" /><path d="M12 7v5" /></svg>
+                                 V&ZeroWidthSpace;Р&ZeroWidthSpace;N на 1 час
                             </button>
                             <div id="vpn-status"></div>
                         </div>
@@ -298,7 +332,7 @@
                     <div class="timeline-icon">3</div>
                     <div class="timeline-content">
                         <b>Перейдите в Telegram-бот</b>
-                        <p>Нажмите зеленую кнопку ниже. В боте выдается основная подписка и ключи управления.</p>
+                        <p>В нашем боте вы сможете получить тестовый период, купить постоянную подписку и управлять своими устройствами. Это ваш личный кабинет.</p>
                         
                         <a href="https://t.me/cybercrab_cc_vpn_bot" target="_blank" class="btn-main btn-bot">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4"></path></svg>
@@ -312,11 +346,20 @@
                     <div class="timeline-icon">4</div>
                     <div class="timeline-content">
                         <b>Настройте и пользуйтесь</b>
-                        <p>Нажмите кнопку <b>«Хочу бесплатно подключиться»</b> ниже для перехода к пошаговой инструкции.</p>
+                        <p>Нажмите кнопку <b>«Хочу бесплатно подключиться»</b> ниже для перехода к пошаговой инструкции. Данный доступ является временным и предназначен для ознакомления со скоростью и качеством работы сервиса.</p>
                     </div>
                 </div>
-                
             </div>
+
+            <div class="warning-box" style="margin-left: 12px;">
+                <div class="warning-box-header">
+                    <i>💡</i> <b>Совет по очистке:</b> 
+                </div>
+                <p>
+                    После настройки основной подписки не забудьте удалить временный профиль (trial_), чтобы в будущем не путаться в серверах.
+                </p>
+            </div>
+            
         </div>
 
         <div class="diag-grid">
@@ -336,6 +379,14 @@
                 </div>
             </div>
 
+            <div class="diag-item" onclick="showView('view-per-app')">
+                <i>📱</i>
+                <div class="label-box">
+                  <span class="label-heading">V&ZeroWidthSpace;Р&ZeroWidthSpace;N для выбранных приложений</span>
+                  <span class="label-desc">Split Tunneling на Android</span>
+                </div>
+            </div>
+
             <div class="diag-item" onclick="showView('view-issues')">
                 <i>🔧</i>
                 <div class="label-box">
@@ -349,6 +400,14 @@
                 <div class="label-box">
                   <span class="label-heading">Умная маршрутизация v2raytun</span>
                   <span class="label-desc">Настройка правил для приложения</span>
+                </div>
+            </div>
+
+            <div class="diag-item" onclick="showView('view-share')">
+                <i>📲</i>
+                <div class="label-box">
+                  <span class="label-heading">Как поделиться подпиской?</span>
+                  <span class="label-desc">Перенос на другое устройство по QR</span>
                 </div>
             </div>
 
@@ -381,13 +440,21 @@
         <div class="success-finish">
             🎉 Готово! V&ZeroWidthSpace;Р&ZeroWidthSpace;N подключен — можно пользоваться
         </div>
+
+        <div class="warning-box">
+            <div class="warning-box-header">
+                <i>💡</i> <b>Совет по очистке:</b> 
+            </div>
+            <p>
+                Если вы ранее использовали временный доступ с сайта, удалите профиль с названием <b>trial_*</b> из списка в приложении после того, как настроите основную подписку. Это предотвратит путаницу в серверах.
+            </p>
+        </div>
     </div>
 
     <div id="view-payment" class="view">
         <div class="back-nav" onclick="showView('view-main')">← Назад к выбору</div>
         
-        <div class="instant-fix" style="background: rgba(56, 189, 248, 0.1); border-color: var(--accent); color: var(--text-main);">
-            <div style="color: var(--accent); font-weight: bold; margin-bottom: 5px;">⚡ Быстрое решение</div>
+        <div class="instant-fix">
             Используйте <b style="color: var(--accent);">Telegram Stars</b> для моментальной оплаты в 1 клик прямо внутри бота.
         </div>
 
@@ -399,7 +466,21 @@
             <div class="sol-card"><b>2. Переход к оплате</b><p>Нажмите «Пополнить баланс» -> выберите «СБП (QR) (Platega)» -> нажмите «Оплатить через СБП (QR)».</p></div>
             <div class="sol-card"><b>3. Оплата</b><p>Нажмите «Открыть ссылку» -> «Оплатить СБП». Выберите ваше банковское приложение и подтвердите оплату.</p></div>
             <div class="sol-card"><b>4. Активация</b><p>После успешной оплаты (пополнения баланса) вернитесь в меню бота и повторно нажмите «Купить подписку».</p></div>
+    
         </div>
+        <div class="success-finish">
+            🎉 Готово! Подписка оплачена — можно пользоваться V&ZeroWidthSpace;Р&ZeroWidthSpace;N
+        </div>
+
+        <div class="warning-box">
+            <div class="warning-box-header">
+                <i>💡</i> <b>Совет по очистке:</b> 
+            </div>
+            <p>
+                Если вы ранее использовали временный доступ с сайта, удалите профиль с названием <b>trial_*</b> из списка в приложении после того, как настроите основную подписку. Это предотвратит путаницу в серверах.
+            </p>
+        </div>
+
     </div>
 
     <div id="view-issues" class="view">
@@ -420,7 +501,7 @@
           <div class="sol-card"><b>Старая подписка</b><p>В боте проверьте остаток трафика, а в приложении нажмите «Обновить подписку» (круговая стрелка).</p></div>
           <div class="sol-card"><b>Сервер недоступен</b><p>Попробуйте сменить сервер на другой</p></div>
         </div>
-        <div class="instant-fix" style="background:rgba(239, 68, 68, 0.1); border-color:var(--danger); color:#fff;">Не помогло? Напишите в поддержку — ответим быстро и поможем подключиться</div>
+        <div class="instant-fix">Не помогло? Напишите в поддержку — ответим быстро и поможем подключиться</div>
     </div>
 
     <div id="view-issue-internet" class="view">
@@ -432,7 +513,7 @@
             <div class="sol-card"><b>Смена сервера</b><p>Попробуйте сменить сервер на другой.</p></div>
             <div class="sol-card"><b>Проверьте правила</b><p>Если вы настраивали «Умную маршрутизацию», временно отключите её. Если интернет появится — обновите список правил.</p></div>
         </div>
-        <div class="instant-fix" style="background:rgba(239, 68, 68, 0.1); border-color:var(--danger); color:#fff;">Не помогло? Напишите в поддержку — ответим быстро и поможем подключиться</div>
+        <div class="instant-fix">Не помогло? Напишите в поддержку — ответим быстро и поможем подключиться</div>
     </div>
 
     <div id="view-slow-internet" class="view">
@@ -461,6 +542,102 @@
             </div>
         </div>
     </div>
+
+    <div id="view-share" class="view">
+        <div class="back-nav" onclick="showView('view-main')">← Назад к выбору</div>
+        
+        <div class="content-card">
+            <h3 style="margin-top: 0;">Как подключить другие устройства</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">
+                Если у вас тариф «Стандарт» (до 3-х устройств), вы можете поделиться ссылкой быстро и легко, без повторного входа в Telegram на новых устройствах.
+            </p>
+            
+            <div class="sol-card">
+                <b>1. Откройте ссылку</b>
+                <p>На уже подключенном устройстве перейдите по вашей ссылке для подписки (откроется страница в браузере).</p>
+            </div>
+            
+            <div class="sol-card">
+                <b>2. Вызов QR-кода</b>
+                <p>В правом верхнем углу экрана нажмите на кнопку "🔗"</p>
+            </div>
+            
+            <div class="sol-card">
+                <b>3. Сканирование</b>
+                <p>На экране появится QR-код. Отсканируйте его прямо из приложения для VPN (Incy, V2Raytun, RabbitHole и др.) на вашем втором или третьем устройстве.</p>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <div class="warning-box-header">
+                <i>💡</i> <b>Важно:</b> 
+            </div>
+            <p>Этот QR-код содержит ваш уникальный ключ. Не публикуйте его в открытом доступе.</p>
+        </div>
+
+    </div>
+
+    <div id="view-per-app" class="view">
+        <div class="back-nav" onclick="showView('view-main')">← Назад к выбору</div>
+        
+        <div class="content-card">
+            <h3 style="margin-top: 0;">Зачем это нужно?</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">
+                Функция «Раздельное туннелирование» позволяет выбрать конкретные приложения, которые будут работать через V&ZeroWidthSpace;Р&ZeroWidthSpace;N. 
+                Остальные (например, Сбербанк, Госуслуги, Такси) будут работать напрямую. Это экономит заряд батареи и избавляет от необходимости постоянно включать и выключать V&ZeroWidthSpace;Р&ZeroWidthSpace;N.
+                <p><b>Данная функция доступна только пользователям Android.</b></p>
+            </p>
+                <div class="diag-grid">
+                    <div class="diag-item" onclick="showView('view-per-incy')"><i><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FAFAFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-box-model-2"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M8 8h8v8h-8l0 -8" /><path d="M4 6a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2l0 -12" /></svg></i> 
+                        <div class="label">Incy</div></div>
+                    <div class="diag-item" onclick="showView('view-per-flclashx')"><i><svg width="24" height="24" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="16.1458" y="47" width="6.66417" height="46.9593" rx="3.33209" transform="rotate(-150 16.1458 47)" fill="#FAFAFA"/><path d="M38.1165 40.751C39.0362 42.3446 38.4902 44.3827 36.8967 45.3027C35.3031 46.2228 33.2652 45.6764 32.345 44.083L25.6887 32.5537L29.5364 25.8896L38.1165 40.751ZM13.4163 4.63477C15.01 3.71464 17.0479 4.26078 17.968 5.85449L24.5334 17.2266L20.6868 23.8906L12.1975 9.18652C11.2775 7.59298 11.8229 5.55504 13.4163 4.63477Z" fill="#FAFAFA"/></svg></i> 
+                        <div class="label">Flclash X</div></div>
+                    <div class="diag-item" onclick="showView('view-per-v2raytun')"><i><svg width="24" height="24" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.6586 13.2268L12.1706 30.7123H12.3749L20.8724 13.2268H27.531L15.1393 37.1004H7.21872L3 13.2268H9.6586Z" fill="#FAFAFA"/><path d="M26.0467 37.1004L26.7558 32.9505L37.0442 25.3268C37.8214 24.7362 38.4865 24.1922 39.0394 23.6948C39.6003 23.1974 40.049 22.7001 40.3855 22.2027C40.722 21.7053 40.9384 21.1613 41.0345 20.5707C41.1467 19.9102 41.0946 19.3428 40.8783 18.8688C40.6619 18.3947 40.3174 18.0334 39.8446 17.7847C39.3719 17.5282 38.803 17.4 38.1379 17.4C37.4568 17.4 36.8319 17.536 36.2629 17.808C35.694 18.0722 35.2213 18.4608 34.8447 18.9737C34.4761 19.4788 34.2317 20.0889 34.1115 20.8039H28.4625C28.743 19.1796 29.364 17.7769 30.3255 16.5957C31.287 15.4144 32.505 14.5052 33.9793 13.8679C35.4537 13.2229 37.1003 12.9004 38.9192 12.9004C40.7781 12.9004 42.3446 13.2035 43.6187 13.8096C44.9007 14.4158 45.8262 15.2629 46.3951 16.3509C46.972 17.4311 47.1363 18.6862 46.8879 20.1161C46.7276 21.0253 46.3791 21.9268 45.8422 22.8205C45.3134 23.7065 44.468 24.6934 43.3062 25.7814C42.1443 26.8616 40.5458 28.1556 38.5105 29.6632L35.1211 32.2977L35.0851 32.4492H45.073L44.2677 37.1004H26.0467Z" fill="#FAFAFA"/></svg></i> 
+                        <div class="label">V2RayTun</div></div>
+                </div>
+        </div>
+    </div>
+
+
+    <div id="view-per-incy" class="view">
+        <div class="back-nav" onclick="showView('view-per-app')">← Назад</div>
+        <div class="content-card">
+            <h3><b>Incy</b></h3>
+            <p>Настройки → Прокси по приложениям → Включить «Включить прокси по приложениям» → Выбрать режим «Только через туннель».</p>
+            <p style="margin-top:8px; font-size:0.8rem; opacity:0.8;">Затем найдите в списке нужные приложения (YouTube, Telegram и т.д.) и отметьте их галочками.</p>
+        </div>
+        <div class="warning-box">
+            <div class="warning-box-header"><i>💡</i> <b>Важно:</b></div>
+            <p>После изменения настроек раздельного туннелирования рекомендуется выключить и снова включить соединение в приложении.</p>
+        </div>
+    </div>
+
+    <div id="view-per-v2raytun" class="view">
+        <div class="back-nav" onclick="showView('view-per-app')">← Назад</div>
+        <div class="content-card">
+            <h3>V2RayTun</h3>
+            <p>Настройки → Маршрутизация → Маршрутизация выбранных приложений → Включить «Маршрутизация выбранных приложений».</p>
+            <p style="margin-top:8px; font-size:0.8rem; opacity:0.8;">Выберите приложения из списка или через поиск.</p>
+        </div>
+        <div class="warning-box">
+            <div class="warning-box-header"><i>💡</i> <b>Важно:</b></div>
+            <p>После изменения настроек раздельного туннелирования рекомендуется выключить и снова включить соединение в приложении.</p>
+        </div>
+    </div>
+
+    <div id="view-per-flclashx" class="view">
+        <div class="back-nav" onclick="showView('view-per-app')">← Назад</div>
+        <div class="content-card">
+            <h3>FlClash X</h3>
+            <p>Настройки → Контроль доступа → Включить «Контроль доступа приложений».</p>
+            <p style="margin-top:8px; font-size:0.8rem; opacity:0.8;">Выберите необходимые программы в появившемся списке.</p>
+        </div>
+        <div class="warning-box">
+            <div class="warning-box-header"><i>💡</i> <b>Важно:</b></div>
+            <p>После изменения настроек раздельного туннелирования рекомендуется выключить и снова включить соединение в приложении.</p>
+        </div>
+    </div>
+
 
     <div id="view-tv" class="view">
         <div class="back-nav" onclick="showView('view-main')">← Назад</div>
@@ -491,7 +668,7 @@
                🎉 Готово! Подписка отправлена на android TV!
            </div>
         </div>
-
+        
         <div class="content-card">
             <h3>📺 Перенос ссылки на Android TV с помощью LocalSend</h3>
             <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Используйте этот способ, чтобы не вводить длинную ссылку с пульта.</p>
@@ -543,14 +720,6 @@
             <h3 style="margin-bottom: 20px;">Частые вопросы</h3>
 
             <details class="faq-item">
-                <summary>Есть ли пробный период у вашего сервиса?</summary>
-                <div class="faq-answer">
-                    <p>Да, конечно! Мы предоставляем бесплатный тестовый период, чтобы вы могли лично оценить скорость и стабильность работы перед покупкой.</p>
-                    <p>Пробная подписка выдается на <b>3 дня</b> и включает <b>2 ГБ трафика</b> с возможностью одновременного подключения на <b>1 устройстве</b>. Этого времени и объема данных более чем достаточно для комфортного серфинга и тестирования.</p>
-                </div>
-            </details>
-
-            <details class="faq-item">
                 <summary>Какой сервер выбрать?</summary>
                 <div class="faq-answer">
                     Apple/Google/Microsoft — это лишь типы маскировки. Все они ведут на один быстрый сервер. Если один режим тормозит, просто выберите другой.
@@ -558,11 +727,16 @@
             </details>
 
             <details class="faq-item">
-                <summary>Умные правила V2Raytun</summary>
+                <summary class="faq-question">Что значит "По правилам / Глобальный / Прямой" в приложении FLClashX?</summary>
                 <div class="faq-answer">
-                    Настройки -> Правила трафика -> Правила от сообщества -> Установить «.RU без V&ZeroWidthSpace;Р&ZeroWidthSpace;N».
+                    <p>Это режимы маршрутизации. Они указывают вашему <span style="white-space: nowrap;">V&#8203Р&#8203N</span>-приложению, как именно нужно сортировать интернет-трафик.</p>
+                    <ul>
+                        <li><strong>По правилам (Rule / Routing)</strong> — это «умный» режим, который <span style="color: #31bae3; font-style: italic;">используется по умолчанию</span>. Приложение само разделяет трафик по заложенным в него правилам: российские сайты (банки, Госуслуги, маркетплейсы) открываются напрямую через вашего провайдера, а соцсети и зарубежные сервисы идут через <span style="white-space: nowrap;">V&#8203Р&#8203N</span>. Это самый удобный режим на каждый день, чтобы ничего не ломалось.</li>
+                        <li><strong>Глобальный (Global / Proxy)</strong> — режим полного проксирования. Абсолютно весь интернет-трафик на вашем устройстве принудительно отправляется через <span style="white-space: nowrap;">V&#8203Р&#8203N</span>-сервер за границу. Используйте его, если вам нужно скрыть свой реальный IP-адрес абсолютно для всех сайтов без исключения. <strong>Важно:</strong> в этом режиме многие российские банковские приложения могут не работать. <br><span style="color: #ef8e76; font-style: italic;">Обратите внимание</span>: после включения этого режима зайдите во вкладку "Прокси" и убедитесь, что в появившейся группе Global выбрана группа CyberCrab <span style="white-space: nowrap;">V&#8203Р&#8203N</span> (Selector), а не DIRECT.</li>
+                        <li><strong>Прямой (Direct)</strong> — режим полного обхода VPN. Весь трафик идет напрямую, минуя защищенный туннель. Фактически, <span style="white-space: nowrap;">V&#8203Р&#8203N</span> перестает маскировать ваш IP-адрес и открывать доступ к ресурсам, даже если само подключение активно. Обычно этот режим нужен только разработчикам для тестирования сети.</li>
+                    </ul>
                 </div>
-            </details>
+            </details>  
         </div>
     </div>
 
