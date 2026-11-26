@@ -277,6 +277,9 @@
             .card { padding: 15px; }
         }
     </style>
+
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
 </head>
 <body>
 
@@ -319,14 +322,20 @@
                         <p>Нажмите кнопку для вашего клиента, чтобы добавить ознакомительный профиль и проверить стабильность защищённого соединения. Откроется приложение — нажмите <b>«Импортировать»</b>, и конфигурация добавится автоматически.</p>
                         
                         <div class="vpn-trial-wrapper" style="display: flex; flex-direction: column; gap: 10px;">
-                            <a id="trial-btn-rabbit" href="rabbithole://add/https://sync.sys-acces.com/6RfxuhexsRUbD82u" class="btn-main btn-trial">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-clock-hour-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 12l3 2" /><path d="M12 7v5" /></svg>
+                            <div style="display: flex; justify-content: center; margin-top: 12px;">
+                                <div class="cf-turnstile" data-sitekey="0x4AAAAAAGUhnY1ODJmpc7Ue" data-theme="dark"></div>
+                            </div>
+
+                            <button type="button" id="trial-btn-rabbit" class="btn-main btn-trial" onclick="requestTrial('rabbit')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 12l3 2" /><path d="M12 7v5" /></svg>
                                 Временный VPN [RabbitHole]
-                            </a>
-                            <a id="trial-btn-flclash" href="flclashx://install-config?url=https://sync.sys-acces.com/6RfxuhexsRUbD82u" class="btn-main btn-trial">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-clock-hour-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 12l3 2" /><path d="M12 7v5" /></svg>
+                            </button>
+
+                            <button type="button" id="trial-btn-flclash" class="btn-main btn-trial" onclick="requestTrial('flclash')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 12l3 2" /><path d="M12 7v5" /></svg>
                                 Временный VPN [FLClash X]
-                            </a>
+                            </button>
+
                             <div id="vpn-status"></div>
                         </div>
 
@@ -797,6 +806,72 @@
         const content = btn.nextElementSibling;
         content.style.display = (content.style.display === "none") ? "block" : "none";
         btn.innerText = (content.style.display === "none") ? "👁️ Показать скриншот" : "🙈 Скрыть скриншот";
+    }
+
+    const TRIAL_API_URL = "https://api-sync-service.cc/generate-trial";
+
+    function buildDeepLink(clientType, subscriptionUrl) {
+        if (clientType === "rabbit") {
+            return `rabbithole://add/${subscriptionUrl}`;
+        }
+        return `flclashx://install-config?url=${encodeURIComponent(subscriptionUrl)}`;
+    }
+
+    async function requestTrial(clientType) {
+        const rabbitBtn = document.getElementById("trial-btn-rabbit");
+        const flclashBtn = document.getElementById("trial-btn-flclash");
+        const statusDiv = document.getElementById("vpn-status");
+
+        const turnstileInput = document.querySelector('[name="cf-turnstile-response"]');
+        const token = turnstileInput ? turnstileInput.value : "";
+
+        if (!token) {
+            statusDiv.className = "status-error";
+            statusDiv.innerHTML = "Дождитесь завершения проверки безопасности выше и нажмите ещё раз.";
+            return;
+        }
+
+        rabbitBtn.disabled = true;
+        flclashBtn.disabled = true;
+        statusDiv.className = "status-loading";
+        statusDiv.innerHTML = "Создаём временный профиль (1 час / 50 МБ)...";
+
+        try {
+            const response = await fetch(TRIAL_API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ turnstile_token: token }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || data.detail || `Ошибка сервера: ${response.status}`);
+            }
+
+            if (data.status === "success" && data.link) {
+                const deepLink = buildDeepLink(clientType, data.link);
+                statusDiv.className = "status-success";
+                statusDiv.innerHTML =
+                    "Профиль готов! Открываем приложение...<br>" +
+                    `<a href="${deepLink}" class="fallback-btn">👉 Нажмите сюда, если приложение не открылось</a>`;
+
+                setTimeout(() => {
+                    window.location.href = deepLink;
+                }, 600);
+            } else {
+                throw new Error("Некорректный формат ответа от сервера.");
+            }
+        } catch (error) {
+            statusDiv.className = "status-error";
+            statusDiv.innerHTML = error.message || "Не удалось получить временный доступ. Попробуйте позже.";
+            rabbitBtn.disabled = false;
+            flclashBtn.disabled = false;
+        } finally {
+            if (window.turnstile) {
+                window.turnstile.reset();
+            }
+        }
     }
 </script>
 
